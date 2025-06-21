@@ -11,14 +11,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Run role and permission seeder first
+        // Production: Only essential data
         $this->call([
-            RolePermissionSeeder::class,
-            AdminUserSeeder::class,
-            CategorySeeder::class,
-            SupplierSeeder::class,
-            SampleDataSeeder::class,
-            TestDataSeeder::class, // Add the new test data seeder
+            RolePermissionSeeder::class,    // Creates roles and permissions
+            AdminUserSeeder::class,         // Creates admin user
         ]);
+        
+        // Development: Uncomment below for dummy data during development
+        // $this->call([
+        //     CategorySeeder::class,         // Dummy categories
+        //     SupplierSeeder::class,         // Dummy suppliers
+        //     SampleDataSeeder::class,       // Sample products/sales
+        //     TestDataSeeder::class,         // Test data
+        // ]);
     }
 }
