@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 // Test routes (no authentication required)
 Route::get('/test', [TestController::class, 'test']);
 Route::post('/test/webhook', [TestController::class, 'testWebhook']);
+Route::get('/test/database', [TestController::class, 'testDatabase']);
 
 // Public routes (no authentication required)
 Route::post('/login', [AuthController::class, 'login']);
@@ -116,6 +117,7 @@ Route::fallback(function () {
         'available_endpoints' => [
             'GET /api/health',
             'GET /api/test',
+            'GET /api/test/database',
             'POST /api/test/webhook',
             'POST /api/login',
             'POST /api/register',
