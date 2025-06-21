@@ -43,10 +43,5 @@ class Sale extends Model
                 $sale->transaction_code = 'TXN' . date('Ymd') . str_pad(static::whereDate('created_at', today())->count() + 1, 4, '0', STR_PAD_LEFT);
             }
         });
-
-        static::created(function ($sale) {
-            // Update product stock
-            $sale->product->decrement('stock_quantity', $sale->quantity_sold);
-        });
     }
 }

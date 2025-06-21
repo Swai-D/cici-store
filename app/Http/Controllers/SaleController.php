@@ -72,13 +72,17 @@ class SaleController extends Controller
 
         // Check if enough stock is available
         if ($product->stock_quantity < $request->quantity_sold) {
-            return back()->withErrors(['quantity_sold' => 'Insufficient stock available.']);
+            return back()->withErrors(['quantity_sold' => 'Insufficient stock available.'])->withInput();
         }
 
         // Calculate total price
         $totalPrice = $request->quantity_sold * $request->sale_price;
 
-        Sale::create([
+        // Generate transaction code
+        $transactionCode = 'TXN' . date('Ymd') . str_pad(Sale::whereDate('created_at', today())->count() + 1, 4, '0', STR_PAD_LEFT);
+
+        $sale = Sale::create([
+            'transaction_code' => $transactionCode,
             'product_id' => $request->product_id,
             'quantity_sold' => $request->quantity_sold,
             'sale_price' => $request->sale_price,
@@ -87,6 +91,9 @@ class SaleController extends Controller
             'customer_phone' => $request->customer_phone,
             'sale_time' => now(),
         ]);
+
+        // Update product stock
+        $product->decrement('stock_quantity', $request->quantity_sold);
 
         return redirect()->route('sales.index')->with('success', 'Sale recorded successfully!');
     }

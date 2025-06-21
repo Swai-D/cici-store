@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('quantity_sold');
             $table->decimal('sale_price', 10, 2);
             $table->decimal('total_price', 10, 2);
-            $table->enum('payment_method', ['Cash', 'M-Pesa', 'TigoPesa', 'Bank']);
+            $table->enum('payment_method', ['Cash', 'M-Pesa', 'TigoPesa', 'Airtel Money', 'Bank', 'Credit Card']);
             $table->string('customer_phone')->nullable();
             $table->datetime('sale_time');
             $table->timestamps();

@@ -64,6 +64,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // Add debugging
+        \Log::info('Product store method called', $request->all());
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -82,20 +85,27 @@ class ProductController extends Controller
             $productCode = 'PROD' . strtoupper(Str::random(6));
         }
 
-        Product::create([
-            'product_code' => $productCode,
-            'name' => $request->name,
-            'description' => $request->description,
-            'category_id' => $request->category_id,
-            'supplier_id' => $request->supplier_id,
-            'purchase_price' => $request->purchase_price,
-            'selling_price' => $request->selling_price,
-            'discount_price' => $request->discount_price,
-            'stock_quantity' => $request->stock_quantity,
-            'arrival_date' => $request->arrival_date,
-        ]);
-
-        return redirect()->route('products.index')->with('success', 'Product created successfully!');
+        try {
+            $product = Product::create([
+                'product_code' => $productCode,
+                'name' => $request->name,
+                'description' => $request->description,
+                'category_id' => $request->category_id,
+                'supplier_id' => $request->supplier_id,
+                'purchase_price' => $request->purchase_price,
+                'selling_price' => $request->selling_price,
+                'discount_price' => $request->discount_price,
+                'stock_quantity' => $request->stock_quantity,
+                'arrival_date' => $request->arrival_date,
+            ]);
+            
+            \Log::info('Product created successfully', ['product_id' => $product->id]);
+            
+            return redirect()->route('products.index')->with('success', 'Product created successfully!');
+        } catch (\Exception $e) {
+            \Log::error('Error creating product', ['error' => $e->getMessage()]);
+            return back()->withErrors(['error' => 'Error creating product: ' . $e->getMessage()])->withInput();
+        }
     }
 
     /**
