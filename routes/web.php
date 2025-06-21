@@ -7,6 +7,8 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\RoleManagementController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,6 +38,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit')->middleware('permission:edit_products');
         Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update')->middleware('permission:edit_products');
         Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('permission:delete_products');
+    });
+
+    // Categories - Admin and Manager can manage, Cashier can view
+    Route::group([], function () {
+        Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index')->middleware('permission:view_categories');
+        Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show')->middleware('permission:view_categories');
+        Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create')->middleware('permission:create_categories');
+        Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store')->middleware('permission:create_categories');
+        Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit')->middleware('permission:edit_categories');
+        Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update')->middleware('permission:edit_categories');
+        Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy')->middleware('permission:delete_categories');
+    });
+
+    // Suppliers - Admin and Manager can manage, Cashier can view
+    Route::group([], function () {
+        Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index')->middleware('permission:view_suppliers');
+        Route::get('/suppliers/{supplier}', [SupplierController::class, 'show'])->name('suppliers.show')->middleware('permission:view_suppliers');
+        Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create')->middleware('permission:create_suppliers');
+        Route::post('/suppliers', [SupplierController::class, 'store'])->name('suppliers.store')->middleware('permission:create_suppliers');
+        Route::get('/suppliers/{supplier}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit')->middleware('permission:edit_suppliers');
+        Route::put('/suppliers/{supplier}', [SupplierController::class, 'update'])->name('suppliers.update')->middleware('permission:edit_suppliers');
+        Route::delete('/suppliers/{supplier}', [SupplierController::class, 'destroy'])->name('suppliers.destroy')->middleware('permission:delete_suppliers');
     });
 
     // Sales - Admin and Manager can manage, Cashier can create and view

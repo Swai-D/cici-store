@@ -24,6 +24,18 @@
                         </x-nav-link>
                     @endcan
 
+                    @can('view_categories')
+                        <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                            {{ __('Categories') }}
+                        </x-nav-link>
+                    @endcan
+
+                    @can('view_suppliers')
+                        <x-nav-link :href="route('suppliers.index')" :active="request()->routeIs('suppliers.*')">
+                            {{ __('Suppliers') }}
+                        </x-nav-link>
+                    @endcan
+
                     @can('view_sales')
                         <x-nav-link :href="route('sales.index')" :active="request()->routeIs('sales.*')">
                             {{ __('Sales') }}
@@ -117,6 +129,18 @@
             @can('view_products')
                 <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
                     {{ __('Products') }}
+                </x-responsive-nav-link>
+            @endcan
+
+            @can('view_categories')
+                <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                    {{ __('Categories') }}
+                </x-responsive-nav-link>
+            @endcan
+
+            @can('view_suppliers')
+                <x-responsive-nav-link :href="route('suppliers.index')" :active="request()->routeIs('suppliers.*')">
+                    {{ __('Suppliers') }}
                 </x-responsive-nav-link>
             @endcan
 
