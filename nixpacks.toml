@@ -1,0 +1,21 @@
+[phases.setup]
+nixPkgs = ["nodejs", "npm", "php", "composer"]
+
+[phases.install]
+cmds = [
+    "composer install --no-dev --optimize-autoloader",
+    "npm ci"
+]
+
+[phases.build]
+cmds = [
+    "npm run build",
+    "chmod +x scripts/fix-assets.sh",
+    "./scripts/fix-assets.sh",
+    "php artisan config:cache",
+    "php artisan route:cache",
+    "php artisan view:cache"
+]
+
+[start]
+cmd = "php artisan serve --host=0.0.0.0 --port=$PORT" 

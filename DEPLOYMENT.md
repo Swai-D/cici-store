@@ -152,4 +152,161 @@ php artisan route:clear
 For issues related to:
 - Laravel Framework: Check Laravel documentation
 - Application Logic: Review code comments and documentation
-- Server Issues: Contact your hosting provider 
+- Server Issues: Contact your hosting provider
+
+# CICI Store - Railway Deployment Guide
+
+## 🎯 Overview
+Hii guide inakusaidia ku-deploy CICI Store kwenye Railway na kuhakikisha assets (CSS/JS) zinafanya kazi vizuri kwenye production.
+
+## 🔧 Asset Helper Solution
+
+### How It Works
+Your project uses a custom Asset Helper that automatically switches between:
+- **Development**: Uses Vite for hot reloading
+- **Production**: Uses compiled assets from `public/build/`
+
+### Key Components
+1. **AssetHelper.php** - Handles asset URL generation
+2. **Custom Blade Directives** - `@viteCss`, `@viteJs`, `@viteAsset`
+3. **Fix Assets Script** - Ensures proper asset setup on Railway
+
+## 🚀 Railway Deployment Steps
+
+### 1. Pre-deployment Setup
+```bash
+# Build assets locally first
+npm run build
+
+# Run fix script
+chmod +x scripts/fix-assets.sh
+./scripts/fix-assets.sh
+
+# Commit all changes including public/build/
+git add .
+git commit -m "Build assets for production"
+git push
+```
+
+### 2. Railway Configuration
+Railway will automatically:
+- Install dependencies (`composer install`, `npm ci`)
+- Build assets (`npm run build`)
+- Run fix script (`./scripts/fix-assets.sh`)
+- Cache Laravel configs
+- Start the application
+
+### 3. Environment Variables
+Make sure these are set in Railway:
+```
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://your-app.railway.app
+```
+
+## 🔍 Troubleshooting
+
+### CSS Not Loading
+1. **Check Railway logs** for build errors
+2. **Verify assets exist**:
+   ```bash
+   ls -la public/build/assets/
+   ```
+3. **Run fix script manually** on Railway console:
+   ```bash
+   chmod +x scripts/fix-assets.sh
+   ./scripts/fix-assets.sh
+   ```
+
+### JavaScript Not Working
+1. **Check browser console** for 404 errors
+2. **Verify manifest.json** exists and is valid
+3. **Clear caches**:
+   ```bash
+   php artisan view:clear
+   php artisan config:clear
+   ```
+
+### Build Failures
+1. **Check Node.js version** compatibility
+2. **Verify package.json** dependencies
+3. **Check Vite configuration**
+
+## 📁 File Structure After Deployment
+
+```
+public/
+├── build/
+│   ├── assets/
+│   │   ├── app-7dFzyK7f.css
+│   │   └── app-DNxiirP_.js
+│   └── manifest.json
+└── index.php
+```
+
+## 🔄 Updating Assets
+
+### Adding New CSS/JS Files
+1. **Add to Vite config**:
+   ```javascript
+   // vite.config.js
+   input: [
+       'resources/css/app.css',
+       'resources/js/app.js',
+       'resources/css/new-file.css'  // Add here
+   ]
+   ```
+
+2. **Use in Blade templates**:
+   ```blade
+   @viteCss('resources/css/new-file.css')
+   @viteJs('resources/js/new-file.js')
+   ```
+
+3. **Rebuild and deploy**:
+   ```bash
+   npm run build
+   git add public/build/
+   git commit -m "Add new assets"
+   git push
+   ```
+
+## ✅ Verification Checklist
+
+Before deploying, ensure:
+- [ ] `npm run build` runs successfully
+- [ ] `public/build/assets/` contains CSS and JS files
+- [ ] `public/build/manifest.json` is valid JSON
+- [ ] All layouts use `@viteCss` and `@viteJs` directives
+- [ ] `.gitignore` doesn't exclude `public/build/`
+- [ ] Fix script is executable and working
+
+## 🆘 Common Issues
+
+### "Assets not found" Error
+- Run fix script on Railway console
+- Check if `public/build/` directory exists
+- Verify file permissions
+
+### "Manifest not found" Error
+- Ensure `npm run build` completed successfully
+- Check if `manifest.json` exists in `public/build/`
+- Clear Laravel caches
+
+### "Vite not available" Error
+- This is normal in production
+- Asset helper will fall back to compiled assets
+- Check if fallback assets exist
+
+## 🎉 Success Indicators
+
+Your deployment is successful when:
+- ✅ CSS styles load properly
+- ✅ JavaScript functionality works
+- ✅ No 404 errors for assets
+- ✅ Application looks identical to local development
+- ✅ All interactive features work
+
+---
+
+**Your asset helper solution is now fully configured for Railway deployment!** 🚀 
