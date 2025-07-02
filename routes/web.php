@@ -11,12 +11,31 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
-// Root route - redirect to login or show welcome
+// Root route - simple test first
 Route::get('/', function () {
-    if (auth()->check()) {
-        return redirect()->route('dashboard');
-    }
-    return redirect()->route('login');
+    return 'CICI Store is working!';
+});
+
+// Simple login test route
+Route::get('/login-test', function () {
+    return 'Login page test - no complex views';
+});
+
+// Temporary simple login route
+Route::get('/simple-login', function () {
+    return '<h1>Simple Login Form</h1>
+    <form method="POST" action="/login">
+        <input type="hidden" name="_token" value="' . csrf_token() . '">
+        <div>
+            <label>Email:</label>
+            <input type="email" name="email" required>
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>';
 });
 
 Route::get('/health', function () {
