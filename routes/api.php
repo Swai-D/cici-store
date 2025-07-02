@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\DashboardController;
-use App\Http\Controllers\Api\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +22,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Test routes (no authentication required)
-Route::get('/test', [TestController::class, 'test']);
-Route::post('/test/webhook', [TestController::class, 'testWebhook']);
-Route::get('/test/database', [TestController::class, 'testDatabase']);
-
 // Public routes (no authentication required)
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
@@ -38,22 +32,12 @@ Route::get('/health', function () {
         'status' => 'success',
         'message' => 'CICI Store API is running',
         'timestamp' => now(),
-        'version' => '1.0.0',
-        'endpoints' => [
-            'GET /api/health' => 'Health check',
-            'GET /api/test' => 'Test endpoint',
-            'POST /api/test/webhook' => 'Test webhook',
-            'POST /api/login' => 'User authentication',
-            'POST /api/register' => 'User registration'
-        ]
+        'version' => '1.0.0'
     ]);
 });
 
 // Protected routes (require authentication)
 Route::middleware('auth:sanctum')->group(function () {
-    
-    // Test authentication
-    Route::get('/test/auth', [TestController::class, 'testAuth']);
     
     // User profile
     Route::get('/user', function (Request $request) {
@@ -143,22 +127,6 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::fallback(function () {
     return response()->json([
         'status' => 'error',
-        'message' => 'API endpoint not found',
-        'available_endpoints' => [
-            'GET /api/health',
-            'GET /api/test',
-            'GET /api/test/database',
-            'POST /api/test/webhook',
-            'POST /api/login',
-            'POST /api/register',
-            'GET /api/dashboard',
-            'GET /api/products',
-            'GET /api/sales',
-            'GET /api/expenses',
-            'GET /api/categories',
-            'GET /api/suppliers',
-            'GET /api/reports/daily',
-            'POST /api/webhook/n8n'
-        ]
+        'message' => 'API endpoint not found'
     ], 404);
 }); 
