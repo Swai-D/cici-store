@@ -18,11 +18,11 @@ class DatabaseSeeder extends Seeder
         ]);
         
         // Development: Uncomment below for dummy data during development
-        $this->call([
-            CategorySeeder::class,         // Dummy categories
-            SupplierSeeder::class,         // Dummy suppliers
-            SampleDataSeeder::class,       // Sample products/sales
-            TestDataSeeder::class,         // Test data
-        ]);
+        // $this->call([
+        //     CategorySeeder::class,         // Dummy categories
+        //     SupplierSeeder::class,         // Dummy suppliers
+        //     SampleDataSeeder::class,       // Sample products/sales
+        //     TestDataSeeder::class,         // Test data
+        // ]);
     }
 }
