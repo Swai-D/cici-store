@@ -15,7 +15,8 @@ cmds = [
     "./scripts/fix-assets.sh",
     "php artisan config:cache",
     "php artisan route:cache",
-    "php artisan view:cache"
+    "php artisan view:cache",
+    "ls -la public/build/ || echo 'Build directory check after caching'"
 ]
 
 [start]

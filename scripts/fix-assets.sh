@@ -39,10 +39,16 @@ else
 fi
 
 # Check manifest
-if [ -f "public/build/.vite/manifest.json" ]; then
+if [ -f "public/build/manifest.json" ]; then
     echo "✅ Manifest file found"
+    ls -la public/build/manifest.json
+elif [ -f "public/build/.vite/manifest.json" ]; then
+    echo "✅ Vite manifest file found"
+    ls -la public/build/.vite/manifest.json
 else
     echo "❌ Manifest file missing"
+    echo "📁 Contents of public/build/:"
+    ls -la public/build/ || echo "Directory doesn't exist"
 fi
 
 echo "🎉 Asset setup complete!" 
