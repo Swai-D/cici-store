@@ -20,6 +20,44 @@ Route::get('/health', function () {
     return response()->json(['status' => 'healthy', 'message' => 'CICI Store API is running']);
 });
 
+// Test route to check basic Laravel functionality
+Route::get('/test', function () {
+    try {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Laravel is working',
+            'php_version' => PHP_VERSION,
+            'laravel_version' => app()->version(),
+            'app_env' => config('app.env'),
+            'app_debug' => config('app.debug'),
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+        ], 500);
+    }
+});
+
+// Test database connection
+Route::get('/test-db', function () {
+    try {
+        \DB::connection()->getPdo();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Database connection successful',
+            'database' => \DB::connection()->getDatabaseName(),
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Database connection failed: ' . $e->getMessage(),
+        ], 500);
+    }
+});
+
 // Test route for categories (temporary)
 Route::get('/test-categories', function() {
     return 'Categories test route works!';
