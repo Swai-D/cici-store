@@ -4,8 +4,8 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Categories') }}
             </h2>
-            <a href="{{ route('categories.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Add New Category
+            <a href="{{ route('web.categories.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('Add New Category') }}
             </a>
         </div>
     </x-slot>
@@ -76,9 +76,9 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex space-x-2">
-                                                <a href="{{ route('categories.show', $category) }}" class="text-blue-600 hover:text-blue-900">View</a>
-                                                <a href="{{ route('categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                                <form action="{{ route('categories.destroy', $category) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this category?')">
+                                                <a href="{{ route('web.categories.show', $category) }}" class="text-blue-600 hover:text-blue-900">View</a>
+                                                <a href="{{ route('web.categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                <form action="{{ route('web.categories.destroy', $category) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this category?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
@@ -89,7 +89,7 @@
                                 @empty
                                     <tr>
                                         <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500">
-                                            No categories found. <a href="{{ route('categories.create') }}" class="text-blue-600 hover:text-blue-900">Create your first category</a>
+                                            No categories found. <a href="{{ route('web.categories.create') }}" class="text-blue-600 hover:text-blue-900">Create your first category</a>
                                         </td>
                                     </tr>
                                 @endforelse

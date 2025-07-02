@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <form action="{{ route('sales.store') }}" method="POST">
+                    <form action="{{ route('web.sales.store') }}" method="POST">
                         @csrf
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -91,9 +91,9 @@
 
                         <!-- Submit Buttons -->
                         <div class="mt-6 flex justify-end space-x-3">
-                            <a href="{{ route('sales.index') }}" 
+                            <a href="{{ route('web.sales.index') }}" 
                                class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                                Cancel
+                                {{ __('Cancel') }}
                             </a>
                             <button type="submit" 
                                     class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">

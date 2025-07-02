@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form method="POST" action="{{ route('users.store') }}" class="space-y-6">
+                    <form method="POST" action="{{ route('web.users.store') }}" class="space-y-6">
                         @csrf
 
                         <!-- Name -->

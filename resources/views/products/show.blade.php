@@ -16,12 +16,12 @@
                             <p class="text-gray-600 mt-1">Product Code: {{ $product->product_code }}</p>
                         </div>
                         <div class="flex space-x-3">
-                            <a href="{{ route('products.edit', $product) }}" 
+                            <a href="{{ route('web.products.edit', $product) }}"
                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Edit Product
+                                {{ __('Edit Product') }}
                             </a>
-                            <form action="{{ route('products.destroy', $product) }}" method="POST" class="inline"
-                                  onsubmit="return confirm('Are you sure you want to delete this product?')">
+                            <form action="{{ route('web.products.destroy', $product) }}" method="POST" class="inline"
+                                  onsubmit="return confirm('{{ __('Are you sure you want to delete this product?') }}')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" 

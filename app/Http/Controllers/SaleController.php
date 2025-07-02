@@ -95,7 +95,7 @@ class SaleController extends Controller
         // Update product stock
         $product->decrement('stock_quantity', $request->quantity_sold);
 
-        return redirect()->route('sales.index')->with('success', 'Sale recorded successfully!');
+        return redirect()->route('web.sales.index')->with('success', 'Sale recorded successfully!');
     }
 
     /**
@@ -153,7 +153,7 @@ class SaleController extends Controller
             'customer_phone' => $request->customer_phone,
         ]);
 
-        return redirect()->route('sales.index')->with('success', 'Sale updated successfully!');
+        return redirect()->route('web.sales.index')->with('success', 'Sale updated successfully!');
     }
 
     /**
@@ -165,6 +165,6 @@ class SaleController extends Controller
         $sale->product->increment('stock_quantity', $sale->quantity_sold);
         
         $sale->delete();
-        return redirect()->route('sales.index')->with('success', 'Sale deleted successfully!');
+        return redirect()->route('web.sales.index')->with('success', 'Sale deleted successfully!');
     }
 }

@@ -5,10 +5,10 @@
                 {{ __('User Management') }}
             </h2>
             <div class="flex space-x-2">
-                <a href="{{ route('users.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <a href="{{ route('web.users.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     {{ __('Create New User') }}
                 </a>
-                <a href="{{ route('roles.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                <a href="{{ route('web.roles.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                     {{ __('Create New Role') }}
                 </a>
             </div>
@@ -69,9 +69,9 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                 <div class="flex space-x-2">
-                                                    <a href="{{ route('users.show', $user) }}" class="text-blue-600 hover:text-blue-900">View</a>
-                                                    <a href="{{ route('users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('Are you sure you want to delete this user?') }}')">
+                                                                                                    <a href="{{ route('web.users.show', $user) }}" class="text-blue-600 hover:text-blue-900">View</a>
+                                                <a href="{{ route('web.users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                <form action="{{ route('web.users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('Are you sure you want to delete this user?') }}')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
@@ -120,9 +120,9 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                 <div class="flex space-x-2">
-                                                    <a href="{{ route('roles.show', $role) }}" class="text-blue-600 hover:text-blue-900">View</a>
-                                                    <a href="{{ route('roles.edit', $role) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                                    <form action="{{ route('roles.destroy', $role) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('Are you sure you want to delete this role?') }}')">
+                                                    <a href="{{ route('web.roles.show', $role) }}" class="text-blue-600 hover:text-blue-900">View</a>
+                                                                                                          <a href="{{ route('web.roles.edit', $role) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                                                                          <form action="{{ route('web.roles.destroy', $role) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('Are you sure you want to delete this role?') }}')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>

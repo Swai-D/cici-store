@@ -19,43 +19,43 @@
                     @endcan
 
                     @can('view_products')
-                        <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
+                        <x-nav-link :href="route('web.products.index')" :active="request()->routeIs('web.products.*')">
                             {{ __('Products') }}
                         </x-nav-link>
                     @endcan
 
                     @can('view_categories')
-                        <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                        <x-nav-link :href="route('web.categories.index')" :active="request()->routeIs('web.categories.*')">
                             {{ __('Categories') }}
                         </x-nav-link>
                     @endcan
 
                     @can('view_suppliers')
-                        <x-nav-link :href="route('suppliers.index')" :active="request()->routeIs('suppliers.*')">
+                        <x-nav-link :href="route('web.suppliers.index')" :active="request()->routeIs('web.suppliers.*')">
                             {{ __('Suppliers') }}
                         </x-nav-link>
                     @endcan
 
                     @can('view_sales')
-                        <x-nav-link :href="route('sales.index')" :active="request()->routeIs('sales.*')">
+                        <x-nav-link :href="route('web.sales.index')" :active="request()->routeIs('web.sales.*')">
                             {{ __('Sales') }}
                         </x-nav-link>
                     @endcan
 
                     @can('view_expenses')
-                        <x-nav-link :href="route('expenses.index')" :active="request()->routeIs('expenses.*')">
+                        <x-nav-link :href="route('web.expenses.index')" :active="request()->routeIs('web.expenses.*')">
                             {{ __('Expenses') }}
                         </x-nav-link>
                     @endcan
 
                     @can('view_reports')
-                        <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
+                        <x-nav-link :href="route('web.reports.index')" :active="request()->routeIs('web.reports.*')">
                             {{ __('Reports') }}
                         </x-nav-link>
                     @endcan
 
                     @role('Admin')
-                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                        <x-nav-link :href="route('web.users.index')" :active="request()->routeIs('web.users.*')">
                             {{ __('User Management') }}
                         </x-nav-link>
                     @endrole
@@ -127,43 +127,43 @@
             @endcan
 
             @can('view_products')
-                <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
+                <x-responsive-nav-link :href="route('web.products.index')" :active="request()->routeIs('web.products.*')">
                     {{ __('Products') }}
                 </x-responsive-nav-link>
             @endcan
 
             @can('view_categories')
-                <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                <x-responsive-nav-link :href="route('web.categories.index')" :active="request()->routeIs('web.categories.*')">
                     {{ __('Categories') }}
                 </x-responsive-nav-link>
             @endcan
 
             @can('view_suppliers')
-                <x-responsive-nav-link :href="route('suppliers.index')" :active="request()->routeIs('suppliers.*')">
+                <x-responsive-nav-link :href="route('web.suppliers.index')" :active="request()->routeIs('web.suppliers.*')">
                     {{ __('Suppliers') }}
                 </x-responsive-nav-link>
             @endcan
 
             @can('view_sales')
-                <x-responsive-nav-link :href="route('sales.index')" :active="request()->routeIs('sales.*')">
+                <x-responsive-nav-link :href="route('web.sales.index')" :active="request()->routeIs('web.sales.*')">
                     {{ __('Sales') }}
                 </x-responsive-nav-link>
             @endcan
 
             @can('view_expenses')
-                <x-responsive-nav-link :href="route('expenses.index')" :active="request()->routeIs('expenses.*')">
+                <x-responsive-nav-link :href="route('web.expenses.index')" :active="request()->routeIs('web.expenses.*')">
                     {{ __('Expenses') }}
                 </x-responsive-nav-link>
             @endcan
 
             @can('view_reports')
-                <x-responsive-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
+                <x-responsive-nav-link :href="route('web.reports.index')" :active="request()->routeIs('web.reports.*')">
                     {{ __('Reports') }}
                 </x-responsive-nav-link>
             @endcan
 
             @role('Admin')
-                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                <x-responsive-nav-link :href="route('web.users.index')" :active="request()->routeIs('web.users.*')">
                     {{ __('User Management') }}
                 </x-responsive-nav-link>
             @endrole

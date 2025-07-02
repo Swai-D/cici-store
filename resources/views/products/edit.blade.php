@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <form action="{{ route('products.update', $product) }}" method="POST">
+                    <form action="{{ route('web.products.update', $product) }}" method="POST">
                         @csrf
                         @method('PUT')
                         
@@ -121,9 +121,9 @@
 
                         <!-- Submit Buttons -->
                         <div class="mt-6 flex justify-end space-x-3">
-                            <a href="{{ route('products.index') }}" 
+                            <a href="{{ route('web.products.index') }}"
                                class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                                Cancel
+                                {{ __('Cancel') }}
                             </a>
                             <button type="submit" 
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

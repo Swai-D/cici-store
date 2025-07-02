@@ -4,8 +4,8 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Supplier Details') }}
             </h2>
-            <a href="{{ route('suppliers.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                Back to Suppliers
+            <a href="{{ route('web.suppliers.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('Back to Suppliers') }}
             </a>
         </div>
     </x-slot>
@@ -41,7 +41,7 @@
                                         <td class="px-4 py-2">{{ $product->stock_quantity }}</td>
                                         <td class="px-4 py-2">{{ number_format($product->selling_price, 2) }}</td>
                                         <td class="px-4 py-2">
-                                            <a href="{{ route('products.show', $product) }}" class="text-blue-600 hover:text-blue-900">View</a>
+                                            <a href="{{ route('web.products.show', $product) }}" class="text-blue-600 hover:text-blue-900">View</a>
                                         </td>
                                     </tr>
                                 @empty

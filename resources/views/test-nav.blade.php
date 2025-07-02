@@ -35,14 +35,14 @@
                             <h4 class="font-medium">Test Links:</h4>
                             <div class="space-y-2">
                                 <a href="{{ route('dashboard') }}" class="block text-blue-600 hover:text-blue-800">Dashboard</a>
-                                <a href="{{ route('products.index') }}" class="block text-blue-600 hover:text-blue-800">Products</a>
-                                <a href="{{ route('categories.index') }}" class="block text-blue-600 hover:text-blue-800">Categories</a>
-                                <a href="{{ route('suppliers.index') }}" class="block text-blue-600 hover:text-blue-800">Suppliers</a>
-                                <a href="{{ route('sales.index') }}" class="block text-blue-600 hover:text-blue-800">Sales</a>
-                                <a href="{{ route('expenses.index') }}" class="block text-blue-600 hover:text-blue-800">Expenses</a>
-                                <a href="{{ route('reports.index') }}" class="block text-blue-600 hover:text-blue-800">Reports</a>
+                                <a href="{{ route('web.products.index') }}" class="block text-blue-600 hover:text-blue-800">Products</a>
+                                <a href="{{ route('web.categories.index') }}" class="block text-blue-600 hover:text-blue-800">Categories</a>
+                                <a href="{{ route('web.suppliers.index') }}" class="block text-blue-600 hover:text-blue-800">Suppliers</a>
+                                <a href="{{ route('web.sales.index') }}" class="block text-blue-600 hover:text-blue-800">Sales</a>
+                                <a href="{{ route('web.expenses.index') }}" class="block text-blue-600 hover:text-blue-800">Expenses</a>
+                                <a href="{{ route('web.reports.index') }}" class="block text-blue-600 hover:text-blue-800">Reports</a>
                                 @role('Admin')
-                                    <a href="{{ route('users.index') }}" class="block text-blue-600 hover:text-blue-800">User Management</a>
+                                    <a href="{{ route('web.users.index') }}" class="block text-blue-600 hover:text-blue-800">User Management</a>
                                 @endrole
                             </div>
                         </div>

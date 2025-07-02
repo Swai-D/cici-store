@@ -101,7 +101,7 @@ class ProductController extends Controller
             
             \Log::info('Product created successfully', ['product_id' => $product->id]);
             
-            return redirect()->route('products.index')->with('success', 'Product created successfully!');
+            return redirect()->route('web.products.index')->with('success', 'Product created successfully!');
         } catch (\Exception $e) {
             \Log::error('Error creating product', ['error' => $e->getMessage()]);
             return back()->withErrors(['error' => 'Error creating product: ' . $e->getMessage()])->withInput();
@@ -146,7 +146,7 @@ class ProductController extends Controller
 
         $product->update($request->all());
 
-        return redirect()->route('products.index')->with('success', 'Product updated successfully!');
+        return redirect()->route('web.products.index')->with('success', 'Product updated successfully!');
     }
 
     /**
@@ -155,6 +155,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('products.index')->with('success', 'Product deleted successfully!');
+        return redirect()->route('web.products.index')->with('success', 'Product deleted successfully!');
     }
 }

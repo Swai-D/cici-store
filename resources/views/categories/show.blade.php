@@ -4,8 +4,11 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Category Details') }}
             </h2>
-            <a href="{{ route('categories.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                Back to Categories
+            <a href="{{ route('web.categories.edit', $category) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('Edit Category') }}
+            </a>
+            <a href="{{ route('web.categories.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('Back to Categories') }}
             </a>
         </div>
     </x-slot>
@@ -37,7 +40,7 @@
                                         <td class="px-4 py-2">{{ $product->stock_quantity }}</td>
                                         <td class="px-4 py-2">{{ number_format($product->selling_price, 2) }}</td>
                                         <td class="px-4 py-2">
-                                            <a href="{{ route('products.show', $product) }}" class="text-blue-600 hover:text-blue-900">View</a>
+                                            <a href="{{ route('web.products.show', $product) }}" class="text-blue-600 hover:text-blue-900">View</a>
                                         </td>
                                     </tr>
                                 @empty

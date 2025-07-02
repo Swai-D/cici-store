@@ -5,11 +5,11 @@
                 {{ __('Expense Details') }}
             </h2>
             <div class="flex space-x-2">
-                <a href="{{ route('expenses.edit', $expense) }}" 
+                <a href="{{ route('web.expenses.edit', $expense) }}" 
                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     {{ __('Edit') }}
                 </a>
-                <a href="{{ route('expenses.index') }}" 
+                <a href="{{ route('web.expenses.index') }}" 
                    class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                     {{ __('Back to List') }}
                 </a>
@@ -125,17 +125,17 @@
                     <!-- Action Buttons -->
                     <div class="mt-8 flex justify-between items-center pt-6 border-t">
                         <div class="flex space-x-2">
-                            <a href="{{ route('expenses.edit', $expense) }}" 
+                            <a href="{{ route('web.expenses.edit', $expense) }}" 
                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 {{ __('Edit Expense') }}
                             </a>
-                            <a href="{{ route('expenses.index') }}" 
+                            <a href="{{ route('web.expenses.index') }}" 
                                class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                                 {{ __('Back to Expenses') }}
                             </a>
                         </div>
                         
-                        <form action="{{ route('expenses.destroy', $expense) }}" method="POST" 
+                        <form action="{{ route('web.expenses.destroy', $expense) }}" method="POST" 
                               onsubmit="return confirm('{{ __('Are you sure you want to delete this expense?') }}')"
                               class="inline">
                             @csrf

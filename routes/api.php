@@ -66,33 +66,63 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     
     // Products API
-    Route::apiResource('products', ProductController::class);
-    Route::get('/products/search/{query}', [ProductController::class, 'search']);
-    Route::get('/products/low-stock', [ProductController::class, 'lowStock']);
+    Route::apiResource('products', ProductController::class)->names([
+        'index' => 'api.products.index',
+        'store' => 'api.products.store',
+        'show' => 'api.products.show',
+        'update' => 'api.products.update',
+        'destroy' => 'api.products.destroy',
+    ]);
+    Route::get('/products/search/{query}', [ProductController::class, 'search'])->name('api.products.search');
+    Route::get('/products/low-stock', [ProductController::class, 'lowStock'])->name('api.products.low-stock');
     
     // Sales API
-    Route::apiResource('sales', SaleController::class);
-    Route::get('/sales/today', [SaleController::class, 'today']);
-    Route::get('/sales/date/{date}', [SaleController::class, 'byDate']);
+    Route::apiResource('sales', SaleController::class)->names([
+        'index' => 'api.sales.index',
+        'store' => 'api.sales.store',
+        'show' => 'api.sales.show',
+        'update' => 'api.sales.update',
+        'destroy' => 'api.sales.destroy',
+    ]);
+    Route::get('/sales/today', [SaleController::class, 'today'])->name('api.sales.today');
+    Route::get('/sales/date/{date}', [SaleController::class, 'byDate'])->name('api.sales.by-date');
     
     // Expenses API
-    Route::apiResource('expenses', ExpenseController::class);
-    Route::get('/expenses/today', [ExpenseController::class, 'today']);
-    Route::get('/expenses/date/{date}', [ExpenseController::class, 'byDate']);
+    Route::apiResource('expenses', ExpenseController::class)->names([
+        'index' => 'api.expenses.index',
+        'store' => 'api.expenses.store',
+        'show' => 'api.expenses.show',
+        'update' => 'api.expenses.update',
+        'destroy' => 'api.expenses.destroy',
+    ]);
+    Route::get('/expenses/today', [ExpenseController::class, 'today'])->name('api.expenses.today');
+    Route::get('/expenses/date/{date}', [ExpenseController::class, 'byDate'])->name('api.expenses.by-date');
     
     // Categories API
-    Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('categories', CategoryController::class)->names([
+        'index' => 'api.categories.index',
+        'store' => 'api.categories.store',
+        'show' => 'api.categories.show',
+        'update' => 'api.categories.update',
+        'destroy' => 'api.categories.destroy',
+    ]);
     
     // Suppliers API
-    Route::apiResource('suppliers', SupplierController::class);
+    Route::apiResource('suppliers', SupplierController::class)->names([
+        'index' => 'api.suppliers.index',
+        'store' => 'api.suppliers.store',
+        'show' => 'api.suppliers.show',
+        'update' => 'api.suppliers.update',
+        'destroy' => 'api.suppliers.destroy',
+    ]);
     
     // Reports API
-    Route::prefix('reports')->group(function () {
-        Route::get('/daily', [ReportController::class, 'daily']);
-        Route::get('/weekly', [ReportController::class, 'weekly']);
-        Route::get('/monthly', [ReportController::class, 'monthly']);
-        Route::get('/profit-loss', [ReportController::class, 'profitLoss']);
-        Route::get('/profit-loss/range', [ReportController::class, 'profitLossRange']);
+    Route::prefix('reports')->name('api.reports.')->group(function () {
+        Route::get('/daily', [ReportController::class, 'daily'])->name('daily');
+        Route::get('/weekly', [ReportController::class, 'weekly'])->name('weekly');
+        Route::get('/monthly', [ReportController::class, 'monthly'])->name('monthly');
+        Route::get('/profit-loss', [ReportController::class, 'profitLoss'])->name('profit-loss');
+        Route::get('/profit-loss/range', [ReportController::class, 'profitLossRange'])->name('profit-loss-range');
     });
     
     // Webhook endpoint for n8n

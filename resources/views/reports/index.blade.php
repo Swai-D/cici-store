@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <a href="{{ route('reports.daily') }}" class="text-blue-600 hover:text-blue-900 font-medium">
+                            <a href="{{ route('web.reports.daily') }}" class="text-blue-600 hover:text-blue-900 font-medium">
                                 View Daily Reports →
                             </a>
                         </div>
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <a href="{{ route('reports.weekly') }}" class="text-green-600 hover:text-green-900 font-medium">
+                            <a href="{{ route('web.reports.weekly') }}" class="text-green-600 hover:text-green-900 font-medium">
                                 View Weekly Reports →
                             </a>
                         </div>
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <a href="{{ route('reports.monthly') }}" class="text-purple-600 hover:text-purple-900 font-medium">
+                            <a href="{{ route('web.reports.monthly') }}" class="text-purple-600 hover:text-purple-900 font-medium">
                                 View Monthly Reports →
                             </a>
                         </div>
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <a href="{{ route('reports.profit-loss') }}" class="text-red-600 hover:text-red-900 font-medium">
+                            <a href="{{ route('web.reports.profit-loss') }}" class="text-red-600 hover:text-red-900 font-medium">
                                 View P&L Report →
                             </a>
                         </div>
@@ -113,21 +113,21 @@
                         <div class="text-center">
                             <div class="text-2xl font-bold text-blue-600">Today</div>
                             <div class="text-sm text-gray-500">Check today's sales and performance</div>
-                            <a href="{{ route('reports.daily', ['date' => now()->format('Y-m-d')]) }}" class="mt-2 inline-block text-blue-600 hover:text-blue-900">
+                            <a href="{{ route('web.reports.daily', ['date' => now()->format('Y-m-d')]) }}" class="mt-2 inline-block text-blue-600 hover:text-blue-900">
                                 View Today's Report
                             </a>
                         </div>
                         <div class="text-center">
                             <div class="text-2xl font-bold text-green-600">This Week</div>
                             <div class="text-sm text-gray-500">Weekly performance overview</div>
-                            <a href="{{ route('reports.weekly') }}" class="mt-2 inline-block text-green-600 hover:text-green-900">
+                            <a href="{{ route('web.reports.weekly') }}" class="mt-2 inline-block text-green-600 hover:text-green-900">
                                 View This Week's Report
                             </a>
                         </div>
                         <div class="text-center">
                             <div class="text-2xl font-bold text-purple-600">This Month</div>
                             <div class="text-sm text-gray-500">Monthly financial summary</div>
-                            <a href="{{ route('reports.monthly', ['month' => now()->format('Y-m')]) }}" class="mt-2 inline-block text-purple-600 hover:text-purple-900">
+                            <a href="{{ route('web.reports.monthly', ['month' => now()->format('Y-m')]) }}" class="mt-2 inline-block text-purple-600 hover:text-purple-900">
                                 View This Month's Report
                             </a>
                         </div>

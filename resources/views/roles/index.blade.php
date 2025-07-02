@@ -5,10 +5,10 @@
                 {{ __('Role Management') }}
             </h2>
             <div class="flex space-x-2">
-                <a href="{{ route('users.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                <a href="{{ route('web.users.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                     {{ __('Back to User Management') }}
                 </a>
-                <a href="{{ route('roles.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <a href="{{ route('web.roles.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     {{ __('Create New Role') }}
                 </a>
             </div>
@@ -37,16 +37,16 @@
                                 <div class="flex justify-between items-start mb-4">
                                     <h3 class="text-lg font-semibold text-gray-900">{{ ucfirst($role->name) }}</h3>
                                     <div class="flex space-x-2">
-                                        <a href="{{ route('roles.show', $role) }}" 
+                                        <a href="{{ route('web.roles.show', $role) }}" 
                                            class="text-blue-600 hover:text-blue-900 text-sm">
                                             {{ __('View') }}
                                         </a>
-                                        <a href="{{ route('roles.edit', $role) }}" 
+                                        <a href="{{ route('web.roles.edit', $role) }}" 
                                            class="text-indigo-600 hover:text-indigo-900 text-sm">
                                             {{ __('Edit') }}
                                         </a>
                                         @if($role->name !== 'Admin')
-                                            <form action="{{ route('roles.destroy', $role) }}" method="POST" class="inline" 
+                                            <form action="{{ route('web.roles.destroy', $role) }}" method="POST" class="inline" 
                                                   onsubmit="return confirm('{{ __('Are you sure you want to delete this role?') }}')">
                                                 @csrf
                                                 @method('DELETE')

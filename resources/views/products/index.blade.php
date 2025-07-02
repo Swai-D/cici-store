@@ -5,9 +5,9 @@
                 {{ __('Products') }}
             </h2>
             @can('create_products')
-                <a href="{{ route('products.create') }}" 
+                <a href="{{ route('web.products.create') }}" 
                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    {{ __('Add Product') }}
+                    {{ __('Add New Product') }}
                 </a>
             @endcan
         </div>
@@ -18,7 +18,7 @@
             <!-- Search and Filter Section -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6">
-                    <form method="GET" action="{{ route('products.index') }}" class="space-y-4">
+                    <form method="GET" action="{{ route('web.products.index') }}" class="space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <div>
                                 <label for="search" class="block text-sm font-medium text-gray-700">Search</label>
@@ -58,9 +58,9 @@
                                         class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
                                     {{ __('Filter') }}
                                 </button>
-                                <a href="{{ route('products.index') }}" 
+                                <a href="{{ route('web.products.index') }}" 
                                    class="ml-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                                    {{ __('Clear') }}
+                                    {{ __('Clear Filters') }}
                                 </a>
                             </div>
                         </div>
@@ -116,22 +116,22 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                 <div class="flex space-x-2">
                                                     @can('view_products')
-                                                        <a href="{{ route('products.show', $product) }}" 
+                                                        <a href="{{ route('web.products.show', $product) }}" 
                                                            class="text-indigo-600 hover:text-indigo-900">
                                                             {{ __('View') }}
                                                         </a>
                                                     @endcan
                                                     
                                                     @can('edit_products')
-                                                        <a href="{{ route('products.edit', $product) }}" 
+                                                        <a href="{{ route('web.products.edit', $product) }}" 
                                                            class="text-blue-600 hover:text-blue-900">
                                                             {{ __('Edit') }}
                                                         </a>
                                                     @endcan
                                                     
                                                     @can('delete_products')
-                                                        <form action="{{ route('products.destroy', $product) }}" method="POST" class="inline"
-                                                              onsubmit="return confirm('Are you sure you want to delete this product?')">
+                                                        <form action="{{ route('web.products.destroy', $product) }}" method="POST" class="inline"
+                                                              onsubmit="return confirm('{{ __('Are you sure you want to delete this product?') }}')">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="text-red-600 hover:text-red-900">
@@ -155,7 +155,7 @@
                         <div class="text-center py-8">
                             <p class="text-gray-500">{{ __('No products found.') }}</p>
                             @can('create_products')
-                                <a href="{{ route('products.create') }}" 
+                                <a href="{{ route('web.products.create') }}" 
                                    class="mt-4 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     {{ __('Add Your First Product') }}
                                 </a>

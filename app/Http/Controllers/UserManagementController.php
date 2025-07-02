@@ -40,7 +40,7 @@ class UserManagementController extends Controller
 
         $user->assignRole($request->role);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully!');
+        return redirect()->route('web.users.index')->with('success', 'User created successfully!');
     }
 
     public function show(User $user)
@@ -61,22 +61,22 @@ class UserManagementController extends Controller
             'role' => 'required|exists:roles,name',
         ]);
         $user->syncRoles([$request->role]);
-        return redirect()->route('users.index')->with('success', 'User role updated successfully!');
+        return redirect()->route('web.users.index')->with('success', 'User updated successfully!');
     }
 
     public function destroy(User $user)
     {
         // Prevent deleting the current user
         if ($user->id === auth()->id()) {
-            return redirect()->route('users.index')->with('error', 'You cannot delete your own account!');
+            return redirect()->route('web.users.index')->with('error', 'You cannot delete your own account!');
         }
 
         // Prevent deleting the last admin
         if ($user->hasRole('Admin') && User::role('Admin')->count() <= 1) {
-            return redirect()->route('users.index')->with('error', 'Cannot delete the last admin user!');
+            return redirect()->route('web.users.index')->with('error', 'Cannot delete the last admin user!');
         }
 
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully!');
+        return redirect()->route('web.users.index')->with('success', 'User deleted successfully!');
     }
 }

@@ -5,11 +5,11 @@
                 {{ __('Sale Details') }}
             </h2>
             <div class="flex space-x-2">
-                <a href="{{ route('sales.edit', $sale) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                    Edit Sale
+                <a href="{{ route('web.sales.edit', $sale) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    {{ __('Edit Sale') }}
                 </a>
-                <a href="{{ route('sales.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                    Back to Sales
+                <a href="{{ route('web.sales.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    {{ __('Back to Sales') }}
                 </a>
             </div>
         </div>
@@ -129,7 +129,7 @@
 
                     <!-- Action Buttons -->
                     <div class="mt-8 flex justify-end space-x-3">
-                        <form action="{{ route('sales.destroy', $sale) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this sale? This will restore the product stock.')">
+                        <form action="{{ route('web.sales.destroy', $sale) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this sale? This will restore the product stock.')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">

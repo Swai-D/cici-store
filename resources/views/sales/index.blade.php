@@ -4,8 +4,8 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Sales') }}
             </h2>
-            <a href="{{ route('sales.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                Record Sale
+            <a href="{{ route('web.sales.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('Add New Sale') }}
             </a>
         </div>
     </x-slot>
@@ -15,7 +15,7 @@
             <!-- Search and Filters -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6">
-                    <form method="GET" action="{{ route('sales.index') }}" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <form method="GET" action="{{ route('web.sales.index') }}" class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <div>
                             <label for="search" class="block text-sm font-medium text-gray-700">Search</label>
                             <input type="text" name="search" id="search" value="{{ request('search') }}" 
@@ -50,8 +50,8 @@
                             <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
                                 Filter
                             </button>
-                            <a href="{{ route('sales.index') }}" class="ml-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                                Clear
+                            <a href="{{ route('web.sales.index') }}" class="ml-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                                {{ __('Clear Filters') }}
                             </a>
                         </div>
                     </form>
@@ -107,9 +107,9 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex space-x-2">
-                                                <a href="{{ route('sales.show', $sale) }}" class="text-indigo-600 hover:text-indigo-900">View</a>
-                                                <a href="{{ route('sales.edit', $sale) }}" class="text-green-600 hover:text-green-900">Edit</a>
-                                                <form action="{{ route('sales.destroy', $sale) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this sale?')">
+                                                <a href="{{ route('web.sales.show', $sale) }}" class="text-indigo-600 hover:text-indigo-900">View</a>
+                                                <a href="{{ route('web.sales.edit', $sale) }}" class="text-green-600 hover:text-green-900">Edit</a>
+                                                <form action="{{ route('web.sales.destroy', $sale) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this sale?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>

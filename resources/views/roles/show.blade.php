@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Role Details') }}
             </h2>
-            <a href="{{ route('roles.edit', $role) }}" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+            <a href="{{ route('web.roles.edit', $role) }}" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
                 {{ __('Edit Permissions') }}
             </a>
         </div>
@@ -35,7 +35,7 @@
                         @endif
                     </div>
                     <div class="mt-6">
-                        <a href="{{ route('users.index') }}" class="text-gray-600 hover:text-gray-900">&larr; {{ __('Back to User Management') }}</a>
+                        <a href="{{ route('web.users.index') }}" class="text-gray-600 hover:text-gray-900">&larr; {{ __('Back to User Management') }}</a>
                     </div>
                 </div>
             </div>

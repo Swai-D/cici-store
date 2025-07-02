@@ -161,7 +161,7 @@
                                     </div>
                                     <div class="text-right">
                                         <div class="text-sm font-medium text-red-600">{{ $product->stock_quantity }} left</div>
-                                        <a href="{{ route('products.edit', $product) }}" class="text-sm text-blue-600 hover:text-blue-800">Restock</a>
+                                        <a href="{{ route('web.products.edit', $product) }}" class="text-sm text-blue-600 hover:text-blue-800">Restock</a>
                                     </div>
                                 </div>
                             @empty

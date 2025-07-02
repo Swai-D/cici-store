@@ -4,8 +4,8 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Suppliers') }}
             </h2>
-            <a href="{{ route('suppliers.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Add New Supplier
+            <a href="{{ route('web.suppliers.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                {{ __('Add New Supplier') }}
             </a>
         </div>
     </x-slot>
@@ -46,9 +46,9 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex space-x-2">
-                                                <a href="{{ route('suppliers.show', $supplier) }}" class="text-blue-600 hover:text-blue-900">View</a>
-                                                <a href="{{ route('suppliers.edit', $supplier) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                                <form action="{{ route('suppliers.destroy', $supplier) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this supplier?')">
+                                                <a href="{{ route('web.suppliers.show', $supplier) }}" class="text-blue-600 hover:text-blue-900">View</a>
+                                                <a href="{{ route('web.suppliers.edit', $supplier) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                <form action="{{ route('web.suppliers.destroy', $supplier) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this supplier?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
@@ -59,7 +59,7 @@
                                 @empty
                                     <tr>
                                         <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">
-                                            No suppliers found. <a href="{{ route('suppliers.create') }}" class="text-blue-600 hover:text-blue-900">Create your first supplier</a>
+                                            No suppliers found. <a href="{{ route('web.suppliers.create') }}" class="text-blue-600 hover:text-blue-900">Create your first supplier</a>
                                         </td>
                                     </tr>
                                 @endforelse

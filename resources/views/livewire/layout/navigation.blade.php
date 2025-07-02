@@ -35,35 +35,35 @@ new class extends Component
                     </x-nav-link>
                     
                     @can('view_products')
-                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')" wire:navigate>
+                    <x-nav-link :href="route('web.products.index')" :active="request()->routeIs('web.products.*')" wire:navigate>
                         {{ __('Products') }}
                     </x-nav-link>
                     @endcan
                     
                     @can('view_sales')
-                    <x-nav-link :href="route('sales.index')" :active="request()->routeIs('sales.*')" wire:navigate>
+                    <x-nav-link :href="route('web.sales.index')" :active="request()->routeIs('web.sales.*')" wire:navigate>
                         {{ __('Sales') }}
                     </x-nav-link>
                     @endcan
                     
                     @can('view_expenses')
-                    <x-nav-link :href="route('expenses.index')" :active="request()->routeIs('expenses.*')" wire:navigate>
+                    <x-nav-link :href="route('web.expenses.index')" :active="request()->routeIs('web.expenses.*')" wire:navigate>
                         {{ __('Expenses') }}
                     </x-nav-link>
                     @endcan
                     
                     @can('view_reports')
-                    <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')" wire:navigate>
+                    <x-nav-link :href="route('web.reports.index')" :active="request()->routeIs('web.reports.*')" wire:navigate>
                         {{ __('Reports') }}
                     </x-nav-link>
                     @endcan
                     
                     @role('Admin')
-                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')" wire:navigate>
+                    <x-nav-link :href="route('web.users.index')" :active="request()->routeIs('web.users.*')" wire:navigate>
                         {{ __('Users') }}
                     </x-nav-link>
                     
-                    <x-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.*')" wire:navigate>
+                    <x-nav-link :href="route('web.roles.index')" :active="request()->routeIs('web.roles.*')" wire:navigate>
                         {{ __('Roles') }}
                     </x-nav-link>
                     @endrole
@@ -120,35 +120,35 @@ new class extends Component
             </x-responsive-nav-link>
             
             @can('view_products')
-            <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')" wire:navigate>
+            <x-responsive-nav-link :href="route('web.products.index')" :active="request()->routeIs('web.products.*')" wire:navigate>
                 {{ __('Products') }}
             </x-responsive-nav-link>
             @endcan
             
             @can('view_sales')
-            <x-responsive-nav-link :href="route('sales.index')" :active="request()->routeIs('sales.*')" wire:navigate>
+            <x-responsive-nav-link :href="route('web.sales.index')" :active="request()->routeIs('web.sales.*')" wire:navigate>
                 {{ __('Sales') }}
             </x-responsive-nav-link>
             @endcan
             
             @can('view_expenses')
-            <x-responsive-nav-link :href="route('expenses.index')" :active="request()->routeIs('expenses.*')" wire:navigate>
+            <x-responsive-nav-link :href="route('web.expenses.index')" :active="request()->routeIs('web.expenses.*')" wire:navigate>
                 {{ __('Expenses') }}
             </x-responsive-nav-link>
             @endcan
             
             @can('view_reports')
-            <x-responsive-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')" wire:navigate>
+            <x-responsive-nav-link :href="route('web.reports.index')" :active="request()->routeIs('web.reports.*')" wire:navigate>
                 {{ __('Reports') }}
             </x-responsive-nav-link>
             @endcan
             
             @role('Admin')
-            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')" wire:navigate>
+            <x-responsive-nav-link :href="route('web.users.index')" :active="request()->routeIs('web.users.*')" wire:navigate>
                 {{ __('Users') }}
             </x-responsive-nav-link>
             
-            <x-responsive-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.*')" wire:navigate>
+            <x-responsive-nav-link :href="route('web.roles.index')" :active="request()->routeIs('web.roles.*')" wire:navigate>
                 {{ __('Roles') }}
             </x-responsive-nav-link>
             @endrole
