@@ -11,8 +11,13 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
+// Health check route for Railway
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    return response()->json(['status' => 'healthy', 'message' => 'CICI Store API is running']);
+});
+
+Route::get('/health', function () {
+    return response()->json(['status' => 'healthy', 'message' => 'CICI Store API is running']);
 });
 
 // Test route for categories (temporary)
