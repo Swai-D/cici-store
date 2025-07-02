@@ -11,9 +11,12 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
-// Root route - simple test first
+// Root route - redirect to appropriate page based on auth status
 Route::get('/', function () {
-    return 'CICI Store is working!';
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('login');
 });
 
 // Simple login test route
@@ -36,6 +39,16 @@ Route::get('/simple-login', function () {
         </div>
         <button type="submit">Login</button>
     </form>';
+});
+
+// Database connection test
+Route::get('/db-test', function () {
+    try {
+        \DB::connection()->getPdo();
+        return 'Database connection successful!';
+    } catch (\Exception $e) {
+        return 'Database connection failed: ' . $e->getMessage();
+    }
 });
 
 Route::get('/health', function () {
