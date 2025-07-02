@@ -23,4 +23,14 @@ export default defineConfig({
             host: 'localhost',
         },
     },
+    // Fix for Vite 6.x manifest location
+    experimental: {
+        renderBuiltUrl(filename, { hostType }) {
+            if (hostType === 'js') {
+                return { js: `/${filename}` };
+            } else {
+                return { relative: true };
+            }
+        },
+    },
 });

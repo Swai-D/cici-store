@@ -9,7 +9,7 @@ cmds = [
 
 [phases.build]
 cmds = [
-    "npm run build",
+    "npm run build:prod",
     "chmod +x scripts/fix-assets.sh",
     "./scripts/fix-assets.sh",
     "php artisan config:cache",

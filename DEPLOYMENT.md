@@ -310,3 +310,81 @@ Your deployment is successful when:
 ---
 
 **Your asset helper solution is now fully configured for Railway deployment!** 🚀 
+
+## Common Issues and Solutions
+
+### 1. Vite Manifest Not Found Error
+
+**Error:** `Vite manifest not found at: /app/public/build/manifest.json`
+
+**Cause:** This happens when Vite assets haven't been built for production or the manifest file is in the wrong location.
+
+**Solution:**
+1. Ensure `npm run build:prod` runs during deployment
+2. The manifest file should be at `public/build/manifest.json`
+3. For Vite 6.x, the manifest might be at `public/build/.vite/manifest.json` and needs to be copied
+
+### 2. Asset Building Process
+
+The deployment process should:
+1. Install dependencies: `npm ci`
+2. Build assets: `npm run build:prod`
+3. Run the fix-assets script: `./scripts/fix-assets.sh`
+4. Cache Laravel configurations
+
+### 3. Environment Variables
+
+Make sure these are set in Railway:
+- `APP_ENV=production`
+- `APP_DEBUG=false`
+- `APP_KEY` (Laravel encryption key)
+- `APP_URL` (your Railway app URL)
+- Database credentials
+
+### 4. Troubleshooting
+
+If assets still don't work:
+1. Check Railway logs for build errors
+2. Verify the `public/build/` directory exists
+3. Ensure manifest.json is present
+4. Check file permissions (755 for directories, 644 for files)
+
+### 5. Manual Fix
+
+If automatic deployment fails, you can manually fix by:
+```bash
+# SSH into Railway container
+railway shell
+
+# Build assets manually
+npm run build:prod
+
+# Run fix script
+./scripts/fix-assets.sh
+
+# Clear and recache
+php artisan config:clear
+php artisan config:cache
+php artisan view:clear
+php artisan view:cache
+```
+
+## File Structure After Build
+
+After successful build, you should have:
+```
+public/build/
+├── assets/
+│   ├── app-[hash].css
+│   └── app-[hash].js
+└── manifest.json
+```
+
+## Railway Configuration
+
+The `nixpacks.toml` file handles:
+- Node.js and PHP installation
+- Dependency installation
+- Asset building
+- Laravel optimization
+- Server startup 
