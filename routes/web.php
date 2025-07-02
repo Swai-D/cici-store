@@ -11,9 +11,12 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
-// Health check route for Railway
+// Root route - redirect to login or show welcome
 Route::get('/', function () {
-    return response()->json(['status' => 'healthy', 'message' => 'CICI Store API is running']);
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('login');
 });
 
 Route::get('/health', function () {
