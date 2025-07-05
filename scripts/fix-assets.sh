@@ -2,6 +2,9 @@
 
 echo "🔧 Fixing assets for Railway deployment..."
 
+# Futa kabisa build ya zamani
+rm -rf public/build
+
 # Clear all caches
 php artisan config:clear
 php artisan cache:clear
