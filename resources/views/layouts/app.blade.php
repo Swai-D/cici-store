@@ -12,7 +12,12 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @if (app()->environment('local') || app()->environment('development'))
+            @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @else
+            <link rel="stylesheet" href="{{ asset('build/assets/app-DP4bMnzw.css') }}">
+            <script src="{{ asset('build/assets/app-DNxiirP_.js') }}" defer></script>
+        @endif
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
