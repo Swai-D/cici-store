@@ -18,7 +18,7 @@ class CategoryController extends Controller
             $query = Category::query();
             
             // Pagination
-            $perPage = $request->get('per_page', 15);
+            $perPage = $request->get('per_page', 10);
             $categories = $query->latest()->paginate($perPage);
             
             return response()->json([

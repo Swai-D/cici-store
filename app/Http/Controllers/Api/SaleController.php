@@ -18,7 +18,7 @@ class SaleController extends Controller
             $query = Sale::with(['customer', 'products']);
             
             // Pagination
-            $perPage = $request->get('per_page', 15);
+            $perPage = $request->get('per_page', 10);
             $sales = $query->latest()->paginate($perPage);
             
             return response()->json([

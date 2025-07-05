@@ -11,7 +11,7 @@ class UserManagementController extends Controller
 {
     public function index()
     {
-        $users = User::with('roles')->paginate(15);
+        $users = User::with('roles')->paginate(10);
         $roles = Role::withCount(['users', 'permissions'])->get();
         return view('users.index', compact('users', 'roles'));
     }

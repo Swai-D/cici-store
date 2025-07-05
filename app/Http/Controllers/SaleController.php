@@ -41,7 +41,7 @@ class SaleController extends Controller
             $query->where('payment_method', $request->payment_method);
         }
 
-        $sales = $query->latest('sale_time')->paginate(15);
+        $sales = $query->latest('sale_time')->paginate(10);
 
         return view('sales.index', compact('sales'));
     }

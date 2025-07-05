@@ -18,7 +18,7 @@ class SupplierController extends Controller
             $query = Supplier::query();
             
             // Pagination
-            $perPage = $request->get('per_page', 15);
+            $perPage = $request->get('per_page', 10);
             $suppliers = $query->latest()->paginate($perPage);
             
             return response()->json([

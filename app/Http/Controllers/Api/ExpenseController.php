@@ -18,7 +18,7 @@ class ExpenseController extends Controller
             $query = Expense::query();
             
             // Pagination
-            $perPage = $request->get('per_page', 15);
+            $perPage = $request->get('per_page', 10);
             $expenses = $query->latest()->paginate($perPage);
             
             return response()->json([

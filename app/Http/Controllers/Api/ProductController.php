@@ -39,7 +39,7 @@ class ProductController extends Controller
             }
             
             // Pagination
-            $perPage = $request->get('per_page', 15);
+            $perPage = $request->get('per_page', 10);
             $products = $query->paginate($perPage);
             
             return response()->json([

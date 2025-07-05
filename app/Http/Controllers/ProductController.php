@@ -42,7 +42,7 @@ class ProductController extends Controller
             $query->where('stock_quantity', '<', 10);
         }
 
-        $products = $query->latest()->paginate(15);
+        $products = $query->latest()->paginate(10);
         $categories = Category::all();
         $suppliers = Supplier::all();
 
