@@ -32,9 +32,42 @@ Content-Type: application/json
         "user": {
             "id": 1,
             "name": "Admin User",
-            "email": "admin@example.com"
+            "email": "admin@example.com",
+            "role": "Admin"
         },
-        "token": "1|abc123..."
+        "token": "1|abc123...",
+        "token_type": "Bearer"
+    }
+}
+```
+
+### Register
+```http
+POST /api/register
+Content-Type: application/json
+
+{
+    "name": "New User",
+    "email": "user@example.com",
+    "password": "password123",
+    "password_confirmation": "password123"
+}
+```
+
+**Response:**
+```json
+{
+    "status": "success",
+    "message": "User registered successfully",
+    "data": {
+        "user": {
+            "id": 2,
+            "name": "New User",
+            "email": "user@example.com",
+            "role": "Cashier"
+        },
+        "token": "2|def456...",
+        "token_type": "Bearer"
     }
 }
 ```
@@ -43,6 +76,12 @@ Content-Type: application/json
 Include the token in the Authorization header:
 ```http
 Authorization: Bearer 1|abc123...
+```
+
+### Logout
+```http
+POST /api/logout
+Authorization: Bearer {token}
 ```
 
 ## Public Endpoints (No Authentication Required)
@@ -58,37 +97,17 @@ GET /api/health
     "status": "success",
     "message": "CICI Store API is running",
     "timestamp": "2025-06-21T17:56:53.159082Z",
-    "version": "1.0.0",
-    "endpoints": {
-        "GET /api/health": "Health check",
-        "GET /api/test": "Test endpoint",
-        "POST /api/test/webhook": "Test webhook",
-        "POST /api/login": "User authentication",
-        "POST /api/register": "User registration"
-    }
-}
-```
-
-### Test Endpoint
-```http
-GET /api/test
-```
-
-### Test Webhook
-```http
-POST /api/test/webhook
-Content-Type: application/json
-
-{
-    "event": "test_event",
-    "data": {
-        "message": "Test webhook from n8n",
-        "timestamp": "2025-06-21 17:57:00"
-    }
+    "version": "1.0.0"
 }
 ```
 
 ## Protected Endpoints (Authentication Required)
+
+### User Profile
+```http
+GET /api/user
+Authorization: Bearer {token}
+```
 
 ### Dashboard Data
 ```http
@@ -117,9 +136,16 @@ Authorization: Bearer {token}
 
 #### List Products
 ```http
-GET /api/products?per_page=15&page=1
+GET /api/products?per_page=15&page=1&category_id=1&supplier_id=1&stock_status=low
 Authorization: Bearer {token}
 ```
+
+**Query Parameters:**
+- `per_page`: Number of items per page (default: 10)
+- `page`: Page number (default: 1)
+- `category_id`: Filter by category ID
+- `supplier_id`: Filter by supplier ID
+- `stock_status`: Filter by stock status (`low`, `out`)
 
 #### Search Products
 ```http
@@ -147,8 +173,15 @@ Content-Type: application/json
     "quantity": 50,
     "category_id": 1,
     "supplier_id": 1,
-    "sku": "PROD001"
+    "sku": "PROD001",
+    "barcode": "1234567890123"
 }
+```
+
+#### Get Product
+```http
+GET /api/products/{id}
+Authorization: Bearer {token}
 ```
 
 #### Update Product
@@ -209,6 +242,33 @@ Content-Type: application/json
 }
 ```
 
+**Payment Methods:** `cash`, `card`, `mobile_money`
+
+#### Get Sale
+```http
+GET /api/sales/{id}
+Authorization: Bearer {token}
+```
+
+#### Update Sale
+```http
+PUT /api/sales/{id}
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+    "customer_id": 1,
+    "total_amount": 6000,
+    "payment_method": "card"
+}
+```
+
+#### Delete Sale
+```http
+DELETE /api/sales/{id}
+Authorization: Bearer {token}
+```
+
 ### Expenses Management
 
 #### List Expenses
@@ -220,6 +280,12 @@ Authorization: Bearer {token}
 #### Today's Expenses
 ```http
 GET /api/expenses/today
+Authorization: Bearer {token}
+```
+
+#### Expenses by Date
+```http
+GET /api/expenses/date/{date}
 Authorization: Bearer {token}
 ```
 
@@ -235,6 +301,30 @@ Content-Type: application/json
     "category": "Office",
     "date": "2025-06-21"
 }
+```
+
+#### Get Expense
+```http
+GET /api/expenses/{id}
+Authorization: Bearer {token}
+```
+
+#### Update Expense
+```http
+PUT /api/expenses/{id}
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+    "description": "Updated expense description",
+    "amount": 60000
+}
+```
+
+#### Delete Expense
+```http
+DELETE /api/expenses/{id}
+Authorization: Bearer {token}
 ```
 
 ### Categories Management
@@ -255,6 +345,30 @@ Content-Type: application/json
     "name": "Electronics",
     "description": "Electronic products"
 }
+```
+
+#### Get Category
+```http
+GET /api/categories/{id}
+Authorization: Bearer {token}
+```
+
+#### Update Category
+```http
+PUT /api/categories/{id}
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+    "name": "Updated Category Name",
+    "description": "Updated description"
+}
+```
+
+#### Delete Category
+```http
+DELETE /api/categories/{id}
+Authorization: Bearer {token}
 ```
 
 ### Suppliers Management
@@ -280,6 +394,30 @@ Content-Type: application/json
 }
 ```
 
+#### Get Supplier
+```http
+GET /api/suppliers/{id}
+Authorization: Bearer {token}
+```
+
+#### Update Supplier
+```http
+PUT /api/suppliers/{id}
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+    "name": "Updated Supplier Name",
+    "email": "updated@example.com"
+}
+```
+
+#### Delete Supplier
+```http
+DELETE /api/suppliers/{id}
+Authorization: Bearer {token}
+```
+
 ### Reports
 
 #### Daily Report
@@ -288,10 +426,43 @@ GET /api/reports/daily?date=2025-06-21
 Authorization: Bearer {token}
 ```
 
+**Response:**
+```json
+{
+    "status": "success",
+    "message": "Daily report retrieved successfully",
+    "data": {
+        "date": "2025-06-21",
+        "sales": 50000,
+        "expenses": 15000,
+        "profit": 35000,
+        "top_products": [...]
+    }
+}
+```
+
 #### Weekly Report
 ```http
 GET /api/reports/weekly?start_date=2025-06-15&end_date=2025-06-21
 Authorization: Bearer {token}
+```
+
+**Response:**
+```json
+{
+    "status": "success",
+    "message": "Weekly report retrieved successfully",
+    "data": {
+        "period": {
+            "start_date": "2025-06-15",
+            "end_date": "2025-06-21"
+        },
+        "total_sales": 350000,
+        "total_expenses": 120000,
+        "total_profit": 230000,
+        "daily_breakdown": [...]
+    }
+}
 ```
 
 #### Monthly Report
@@ -300,9 +471,35 @@ GET /api/reports/monthly?year=2025&month=6
 Authorization: Bearer {token}
 ```
 
+**Response:**
+```json
+{
+    "status": "success",
+    "message": "Monthly report retrieved successfully",
+    "data": {
+        "period": {
+            "year": 2025,
+            "month": 6,
+            "start_date": "2025-06-01",
+            "end_date": "2025-06-30"
+        },
+        "total_sales": 1500000,
+        "total_expenses": 500000,
+        "total_profit": 1000000,
+        "weekly_breakdown": [...]
+    }
+}
+```
+
 #### Profit & Loss Report
 ```http
 GET /api/reports/profit-loss?start_date=2025-06-01&end_date=2025-06-21
+Authorization: Bearer {token}
+```
+
+#### Profit & Loss Range Report
+```http
+GET /api/reports/profit-loss/range?start_date=2025-06-01&end_date=2025-06-21
 Authorization: Bearer {token}
 ```
 
@@ -360,11 +557,17 @@ Common HTTP Status Codes:
 - `404` - Not Found
 - `500` - Server Error
 
+## Rate Limiting
+
+The API implements rate limiting:
+- **60 requests per minute** per authenticated user
+- **60 requests per minute** per IP address for unauthenticated requests
+
 ## Testing the API
 
 ### Local Testing
 1. Start Laravel server: `php artisan serve`
-2. Run test script: `php test-api.php`
+2. Test endpoints using tools like Postman or curl
 3. Verify all endpoints return proper responses
 
 ### Production Testing
@@ -420,6 +623,21 @@ Use the production URL and valid credentials to test all endpoints.
 // Email node sends report
 ```
 
+### 4. Product Stock Monitoring
+```javascript
+// Schedule trigger (every hour)
+// HTTP Request node checks low stock
+{
+    "url": "https://your-app.railway.app/api/products?stock_status=low",
+    "method": "GET",
+    "headers": {
+        "Authorization": "Bearer {{$node.Login.json.data.token}}",
+        "Content-Type": "application/json"
+    }
+}
+// If products found, send notification
+```
+
 ## Security Considerations
 
 1. **Token Management**: Store tokens securely in n8n credentials
@@ -427,6 +645,7 @@ Use the production URL and valid credentials to test all endpoints.
 3. **Validation**: All inputs are validated server-side
 4. **HTTPS**: Always use HTTPS in production
 5. **Token Expiration**: Tokens expire after 24 hours by default
+6. **Role-based Access**: Different user roles have different API access levels
 
 ## Support
 
@@ -438,11 +657,24 @@ For API support or questions:
 
 ## Changelog
 
+### Version 1.1.0 (2025-01-27)
+- Added user registration endpoint
+- Added user profile endpoint
+- Added logout endpoint
+- Enhanced product filtering (category, supplier, stock status)
+- Added barcode field to products
+- Added expense date filtering
+- Added profit-loss range report
+- Improved error handling and validation
+- Added comprehensive rate limiting
+- Enhanced webhook logging
+
 ### Version 1.0.0 (2025-06-21)
 - Initial API release
 - Complete CRUD operations for all entities
 - Authentication with Laravel Sanctum
 - Comprehensive reporting endpoints
 - n8n webhook integration
-- Full error handling and validation 
+- Full error handling and validation
+
 **This API is ready for integration with n8n and other external systems!** 🚀 
