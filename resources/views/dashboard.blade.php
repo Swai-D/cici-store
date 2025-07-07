@@ -168,6 +168,13 @@
                                 <div class="text-center text-gray-500 py-4">No low stock items</div>
                             @endforelse
                         </div>
+                        
+                        <!-- Pagination -->
+                        @if($lowStockItems->hasPages())
+                            <div class="mt-6">
+                                {{ $lowStockItems->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // Get dashboard statistics
         $totalProducts = Product::count();
@@ -21,8 +21,10 @@ class DashboardController extends Controller
         // Get latest sales
         $latestSales = Sale::with('product')->latest()->take(5)->get();
         
-        // Get low stock products
-        $lowStockItems = Product::where('stock_quantity', '<', 10)->get();
+        // Get low stock products with pagination (10 items per page)
+        $lowStockItems = Product::where('stock_quantity', '<', 10)
+            ->orderBy('stock_quantity', 'asc')
+            ->paginate(10);
         
         // Prepare sales chart data for last 7 days
         $salesLabels = collect(range(6, 0))->map(function($day) {
