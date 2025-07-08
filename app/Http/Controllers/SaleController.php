@@ -51,8 +51,7 @@ class SaleController extends Controller
      */
     public function create()
     {
-        $products = Product::where('stock_quantity', '>', 0)->get();
-        return view('sales.create', compact('products'));
+        return view('sales.create');
     }
 
     /**
@@ -166,5 +165,37 @@ class SaleController extends Controller
         
         $sale->delete();
         return redirect()->route('web.sales.index')->with('success', 'Sale deleted successfully!');
+    }
+
+    /**
+     * Search products for autocomplete
+     */
+    public function searchProducts(Request $request)
+    {
+        $query = $request->get('q', '');
+        
+        if (strlen($query) < 2) {
+            return response()->json([]);
+        }
+
+        $products = Product::where('stock_quantity', '>', 0)
+            ->where(function($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%")
+                  ->orWhere('product_code', 'like', "%{$query}%")
+                  ->orWhere('description', 'like', "%{$query}%");
+            })
+            ->select('id', 'name', 'product_code', 'selling_price', 'stock_quantity')
+            ->limit(10)
+            ->get()
+            ->map(function($product) {
+                return [
+                    'id' => $product->id,
+                    'text' => "{$product->name} - {$product->product_code} (Stock: {$product->stock_quantity})",
+                    'price' => $product->selling_price,
+                    'stock' => $product->stock_quantity
+                ];
+            });
+
+        return response()->json($products);
     }
 }

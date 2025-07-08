@@ -107,6 +107,11 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/sales/{sale}', [SaleController::class, 'destroy'])->name('web.sales.destroy');
     });
 
+    // Product Search API for Sales
+    Route::middleware('permission:create_sales')->group(function () {
+        Route::get('/api/products/search', [SaleController::class, 'searchProducts'])->name('api.products.search');
+    });
+
     // Expenses
     Route::middleware('permission:view_expenses')->group(function () {
         Route::get('/expenses', [ExpenseController::class, 'index'])->name('web.expenses.index');

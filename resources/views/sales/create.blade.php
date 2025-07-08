@@ -15,19 +15,16 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Product Selection -->
                             <div>
-                                <label for="product_id" class="block text-sm font-medium text-gray-700">Product *</label>
-                                <select name="product_id" id="product_id" required
-                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="">Select Product</option>
-                                    @foreach($products as $product)
-                                        <option value="{{ $product->id }}" 
-                                                data-price="{{ $product->selling_price }}"
-                                                data-stock="{{ $product->stock_quantity }}"
-                                                {{ old('product_id') == $product->id ? 'selected' : '' }}>
-                                            {{ $product->name }} - {{ $product->product_code }} (Stock: {{ $product->stock_quantity }})
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <label for="product_search" class="block text-sm font-medium text-gray-700">Product *</label>
+                                <div class="relative">
+                                    <input type="text" id="product_search" 
+                                           placeholder="Search for a product..."
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                           autocomplete="off">
+                                    <input type="hidden" name="product_id" id="product_id" required>
+                                    <div id="product_suggestions" class="absolute z-50 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto hidden">
+                                    </div>
+                                </div>
                                 @error('product_id')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -107,11 +104,80 @@
     </div>
 
     <script>
-        // Auto-calculate total price
-        document.getElementById('product_id').addEventListener('change', function() {
-            updateTotalPrice();
+        // Product search functionality
+        const productSearch = document.getElementById('product_search');
+        const productId = document.getElementById('product_id');
+        const suggestions = document.getElementById('product_suggestions');
+        let searchTimeout;
+
+        productSearch.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            const query = this.value.trim();
+            
+            if (query.length < 2) {
+                suggestions.classList.add('hidden');
+                return;
+            }
+
+            searchTimeout = setTimeout(() => {
+                searchProducts(query);
+            }, 300);
         });
 
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!productSearch.contains(e.target) && !suggestions.contains(e.target)) {
+                suggestions.classList.add('hidden');
+            }
+        });
+
+        function searchProducts(query) {
+            fetch(`/api/products/search?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    displaySuggestions(data);
+                })
+                .catch(error => {
+                    console.error('Error searching products:', error);
+                });
+        }
+
+        function displaySuggestions(products) {
+            suggestions.innerHTML = '';
+            
+            if (products.length === 0) {
+                suggestions.innerHTML = '<div class="p-3 text-gray-500">No products found</div>';
+                suggestions.classList.remove('hidden');
+                return;
+            }
+
+            products.forEach(product => {
+                const div = document.createElement('div');
+                div.className = 'p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-200 last:border-b-0';
+                div.innerHTML = `
+                    <div class="font-medium text-gray-900">${product.text}</div>
+                    <div class="text-sm text-gray-500">Price: Tsh ${product.price.toLocaleString()}</div>
+                `;
+                
+                div.addEventListener('click', () => {
+                    selectProduct(product);
+                });
+                
+                suggestions.appendChild(div);
+            });
+            
+            suggestions.classList.remove('hidden');
+        }
+
+        function selectProduct(product) {
+            productSearch.value = product.text;
+            productId.value = product.id;
+            document.getElementById('sale_price').value = product.price;
+            suggestions.classList.add('hidden');
+            updateTotalPrice();
+        }
+
+        // Auto-calculate total price
         document.getElementById('quantity_sold').addEventListener('input', function() {
             updateTotalPrice();
         });
@@ -127,13 +193,37 @@
             document.getElementById('total_price').value = total.toLocaleString();
         }
 
-        // Auto-fill sale price when product is selected
-        document.getElementById('product_id').addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            if (selectedOption && selectedOption.dataset.price) {
-                document.getElementById('sale_price').value = selectedOption.dataset.price;
-                updateTotalPrice();
+        // Keyboard navigation for suggestions
+        productSearch.addEventListener('keydown', function(e) {
+            const visibleSuggestions = suggestions.querySelectorAll('div');
+            const currentIndex = Array.from(visibleSuggestions).findIndex(div => div.classList.contains('bg-blue-100'));
+            
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                const nextIndex = currentIndex < visibleSuggestions.length - 1 ? currentIndex + 1 : 0;
+                highlightSuggestion(visibleSuggestions, nextIndex);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                const prevIndex = currentIndex > 0 ? currentIndex - 1 : visibleSuggestions.length - 1;
+                highlightSuggestion(visibleSuggestions, prevIndex);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (currentIndex >= 0 && visibleSuggestions[currentIndex]) {
+                    visibleSuggestions[currentIndex].click();
+                }
+            } else if (e.key === 'Escape') {
+                suggestions.classList.add('hidden');
             }
         });
+
+        function highlightSuggestion(suggestions, index) {
+            suggestions.forEach((div, i) => {
+                if (i === index) {
+                    div.classList.add('bg-blue-100');
+                } else {
+                    div.classList.remove('bg-blue-100');
+                }
+            });
+        }
     </script>
 </x-app-layout> 
