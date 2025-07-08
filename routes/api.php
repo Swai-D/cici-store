@@ -57,7 +57,7 @@ Route::middleware('auth:sanctum')->group(function () {
         'update' => 'api.products.update',
         'destroy' => 'api.products.destroy',
     ]);
-    Route::get('/products/search/{query}', [ProductController::class, 'search'])->name('api.products.search');
+    Route::get('/products/search/{query}', [ProductController::class, 'search'])->name('api.products.search.query');
     Route::get('/products/low-stock', [ProductController::class, 'lowStock'])->name('api.products.low-stock');
     
     // Sales API
