@@ -44,7 +44,7 @@ class RoleManagementController extends Controller
         
         $role->syncPermissions($permissions);
 
-        return redirect()->route('users.index')->with('success', 'Role permissions updated successfully!');
+        return redirect()->route('web.users.index')->with('success', 'Role permissions updated successfully!');
     }
 
     public function create()
@@ -69,16 +69,16 @@ class RoleManagementController extends Controller
             $role->syncPermissions($permissions);
         }
 
-        return redirect()->route('users.index')->with('success', 'Role created successfully!');
+        return redirect()->route('web.users.index')->with('success', 'Role created successfully!');
     }
 
     public function destroy(Role $role)
     {
         if ($role->name === 'Admin') {
-            return redirect()->route('users.index')->with('error', 'Cannot delete Admin role!');
+            return redirect()->route('web.users.index')->with('error', 'Cannot delete Admin role!');
         }
 
         $role->delete();
-        return redirect()->route('users.index')->with('success', 'Role deleted successfully!');
+        return redirect()->route('web.users.index')->with('success', 'Role deleted successfully!');
     }
 } 

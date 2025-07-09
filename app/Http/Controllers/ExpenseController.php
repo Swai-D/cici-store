@@ -50,7 +50,7 @@ class ExpenseController extends Controller
     {
         $categories = [
             'Rent', 'Salary', 'Marketing', 'Utilities', 'Transport', 
-            'Insurance', 'Maintenance', 'Office Supplies', 'Other'
+            'Maintenance', 'Office Supplies', 'Lunch', 'Other'
         ];
         return view('expenses.create', compact('categories'));
     }
@@ -87,7 +87,7 @@ class ExpenseController extends Controller
     {
         $categories = [
             'Rent', 'Salary', 'Marketing', 'Utilities', 'Transport', 
-            'Insurance', 'Maintenance', 'Office Supplies', 'Other'
+            'Maintenance', 'Office Supplies', 'Lunch', 'Other'
         ];
         return view('expenses.edit', compact('expense', 'categories'));
     }
