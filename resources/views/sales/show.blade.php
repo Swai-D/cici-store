@@ -41,7 +41,7 @@
                             <div class="space-y-2">
                                 <div class="flex justify-between">
                                     <span class="text-gray-600">Product Name:</span>
-                                    <span class="font-medium">{{ $sale->product->name }}</span>
+                                    <span class="font-medium">{{ $sale->product ? $sale->product->name : 'Unknown Product' }}</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-gray-600">Product Code:</span>

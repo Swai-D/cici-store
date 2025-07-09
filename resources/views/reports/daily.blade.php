@@ -74,7 +74,7 @@
                                                 {{ $sale->sale_time->format('H:i') }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                {{ $sale->product->name }}
+                                                {{ $sale->product ? $sale->product->name : 'Unknown Product' }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                 {{ $sale->quantity_sold }}

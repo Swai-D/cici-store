@@ -123,7 +123,7 @@
                                             </div>
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">{{ $sale->product->name }}</div>
+                                            <div class="text-sm font-medium text-gray-900">{{ $sale->product ? $sale->product->name : 'Unknown Product' }}</div>
                                             <div class="text-sm text-gray-500">{{ $sale->transaction_code }}</div>
                                         </div>
                                     </div>

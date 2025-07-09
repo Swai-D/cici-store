@@ -31,6 +31,9 @@ class Sale extends Model
 
     public function getProfitAttribute(): float
     {
+        if (!$this->product || !$this->product->purchase_price) {
+            return 0.0;
+        }
         return ($this->sale_price - $this->product->purchase_price) * $this->quantity_sold;
     }
 
