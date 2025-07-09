@@ -65,7 +65,7 @@ class ReportController extends Controller
             ));
         } catch (\Exception $e) {
             // Log the error for debugging
-            \Log::error('Daily report error: ' . $e->getMessage());
+            \Log::error('Daily report error: ' . $e->getMessage() . ' Stack trace: ' . $e->getTraceAsString());
             
             // Return a safe fallback view
             return view('reports.daily', [

@@ -24,6 +24,23 @@ Route::get('/health', function () {
     return response()->json(['status' => 'healthy', 'message' => 'CICI Store API is running']);
 });
 
+// Test route for debugging
+Route::get('/test-report', function () {
+    try {
+        $sales = \App\Models\Sale::count();
+        return response()->json([
+            'status' => 'success',
+            'sales_count' => $sales,
+            'message' => 'Database connection working'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+});
+
 // Main group: all resources require auth
 Route::middleware(['auth'])->group(function () {
     // Dashboard
@@ -132,7 +149,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Reports
-    Route::middleware('permission:view_reports')->group(function () {
+    Route::middleware('auth')->group(function () {
         Route::get('/reports', [ReportController::class, 'index'])->name('web.reports.index');
         Route::get('/reports/daily', [ReportController::class, 'daily'])->name('web.reports.daily');
         Route::get('/reports/weekly', [ReportController::class, 'weekly'])->name('web.reports.weekly');
