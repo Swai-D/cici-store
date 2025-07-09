@@ -17,78 +17,51 @@ class ReportController extends Controller
 
     public function daily(Request $request)
     {
-        try {
-            $date = $request->get('date', now()->format('Y-m-d'));
-            
-            $sales = Sale::whereDate('sale_time', $date)
-                ->with('product')
-                ->get();
+        $date = $request->get('date', now()->format('Y-m-d'));
+        
+        $sales = Sale::whereDate('sale_time', $date)
+            ->with('product')
+            ->get();
 
-            $totalSales = $sales->sum('total_price');
-            $totalTransactions = $sales->count();
-            $totalProfit = $sales->sum('profit');
-            
-            // Most sold product - handle null products
-            $mostSoldProduct = $sales->groupBy(function($sale) {
-                return $sale->product ? $sale->product->name : 'Unknown Product';
-            })
-            ->map(function($productSales) {
-                return $productSales->sum('quantity_sold');
-            })
-            ->sortDesc()
-            ->first();
+        $totalSales = $sales->sum('total_price');
+        $totalTransactions = $sales->count();
+        $totalProfit = $sales->sum('profit');
+        
+        // Most sold product - handle null products
+        $mostSoldProduct = $sales->groupBy(function($sale) {
+            return $sale->product ? $sale->product->name : 'Unknown Product';
+        })
+        ->map(function($productSales) {
+            return $productSales->sum('quantity_sold');
+        })
+        ->sortDesc()
+        ->first();
 
-            // Sales by hour - handle potential null sale_time
-            $salesByHour = $sales->groupBy(function($sale) {
-                return $sale->sale_time ? $sale->sale_time->format('H') : '00';
-            })->map(function($hourSales) {
-                return $hourSales->sum('total_price');
-            });
+        // Sales by hour - handle potential null sale_time
+        $salesByHour = $sales->groupBy(function($sale) {
+            return $sale->sale_time ? $sale->sale_time->format('H') : '00';
+        })->map(function($hourSales) {
+            return $hourSales->sum('total_price');
+        });
 
-            // Prepare chart data for Chart.js
-            $chartData = [
-                'labels' => $salesByHour->keys()->toArray(),
-                'datasets' => [
-                    [
-                        'label' => 'Sales (Tsh)',
-                        'data' => $salesByHour->values()->toArray(),
-                        'borderColor' => 'rgb(75, 192, 192)',
-                        'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
-                        'tension' => 0.1
-                    ]
+        // Prepare chart data for Chart.js
+        $chartData = [
+            'labels' => $salesByHour->keys()->toArray(),
+            'datasets' => [
+                [
+                    'label' => 'Sales (Tsh)',
+                    'data' => $salesByHour->values()->toArray(),
+                    'borderColor' => 'rgb(75, 192, 192)',
+                    'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
+                    'tension' => 0.1
                 ]
-            ];
+            ]
+        ];
 
-            return view('reports.daily', compact(
-                'date', 'sales', 'totalSales', 'totalTransactions', 
-                'totalProfit', 'mostSoldProduct', 'chartData'
-            ));
-        } catch (\Exception $e) {
-            // Log the error for debugging
-            \Log::error('Daily report error: ' . $e->getMessage() . ' Stack trace: ' . $e->getTraceAsString());
-            
-            // Return a safe fallback view
-            return view('reports.daily', [
-                'date' => $date ?? now()->format('Y-m-d'),
-                'sales' => collect(),
-                'totalSales' => 0,
-                'totalTransactions' => 0,
-                'totalProfit' => 0,
-                'mostSoldProduct' => null,
-                'chartData' => [
-                    'labels' => [],
-                    'datasets' => [
-                        [
-                            'label' => 'Sales (Tsh)',
-                            'data' => [],
-                            'borderColor' => 'rgb(75, 192, 192)',
-                            'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
-                            'tension' => 0.1
-                        ]
-                    ]
-                ]
-            ]);
-        }
+        return view('reports.daily', compact(
+            'date', 'sales', 'totalSales', 'totalTransactions', 
+            'totalProfit', 'mostSoldProduct', 'chartData'
+        ));
     }
 
     public function weekly(Request $request)
