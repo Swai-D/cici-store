@@ -35,6 +35,7 @@ class ReportController extends Controller
             return $productSales->sum('quantity_sold');
         })
         ->sortDesc()
+        ->keys()
         ->first();
 
         // Sales by hour - handle potential null sale_time

@@ -34,7 +34,7 @@
                     <div class="p-6">
                         <div class="text-sm font-medium text-gray-500">Most Sold Product</div>
                         <div class="text-lg font-semibold text-gray-800">
-                            {{ $mostSoldProduct ? $mostSoldProduct->keys()->first() : 'N/A' }}
+                            {{ $mostSoldProduct ? $mostSoldProduct : 'N/A' }}
                         </div>
                     </div>
                 </div>
