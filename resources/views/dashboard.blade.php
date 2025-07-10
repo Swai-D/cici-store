@@ -226,16 +226,7 @@
                 datasets: [{
                     label: 'Stock Quantity',
                     data: @json($categoryValues),
-                    backgroundColor: [
-                        'rgba(59, 130, 246, 0.7)',
-                        'rgba(16, 185, 129, 0.7)',
-                        'rgba(139, 92, 246, 0.7)',
-                        'rgba(239, 68, 68, 0.7)',
-                        'rgba(251, 191, 36, 0.7)',
-                        'rgba(34, 197, 94, 0.7)',
-                        'rgba(244, 63, 94, 0.7)',
-                        'rgba(59, 130, 246, 0.4)',
-                    ],
+                    backgroundColor: @json($categoryColors),
                 }]
             },
             options: {

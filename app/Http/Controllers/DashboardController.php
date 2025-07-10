@@ -34,7 +34,7 @@ class DashboardController extends Controller
             return Sale::whereDate('sale_time', now()->subDays($day))->sum('total_price');
         })->toArray();
 
-        // Prepare product category chart data
+        // Prepare product category chart data with colors
         $categoryData = Product::with('category')
             ->get()
             ->groupBy('category.name')
@@ -43,6 +43,13 @@ class DashboardController extends Controller
             });
         $categoryLabels = $categoryData->keys()->toArray();
         $categoryValues = $categoryData->values()->toArray();
+        
+        // Get category colors for the chart
+        $categoryColors = [];
+        foreach ($categoryLabels as $categoryName) {
+            $category = \App\Models\Category::where('name', $categoryName)->first();
+            $categoryColors[] = $category && $category->color ? $category->color : '#3B82F6';
+        }
 
         return view('dashboard', compact(
             'totalProducts',
@@ -55,7 +62,8 @@ class DashboardController extends Controller
             'salesLabels',
             'salesData',
             'categoryLabels',
-            'categoryValues'
+            'categoryValues',
+            'categoryColors'
         ));
     }
 }
