@@ -31,12 +31,12 @@ class ReportController extends Controller
         $mostSoldProduct = $sales->groupBy(function($sale) {
             return $sale->product ? $sale->product->name : 'Unknown Product';
         })
-        ->map(function($productSales) {
-            return $productSales->sum('quantity_sold');
-        })
-        ->sortDesc()
+            ->map(function($productSales) {
+                return $productSales->sum('quantity_sold');
+            })
+            ->sortDesc()
         ->keys()
-        ->first();
+            ->first();
 
         // Sales by hour - handle potential null sale_time
         $salesByHour = $sales->groupBy(function($sale) {
@@ -82,15 +82,15 @@ class ReportController extends Controller
         $topProducts = $sales->groupBy(function($sale) {
             return $sale->product ? $sale->product->name : 'Unknown Product';
         })
-        ->map(function($productSales) {
-            return [
-                'quantity' => $productSales->sum('quantity_sold'),
-                'revenue' => $productSales->sum('total_price'),
-                'profit' => $productSales->sum('profit'),
-            ];
-        })
-        ->sortByDesc('revenue')
-        ->take(5);
+            ->map(function($productSales) {
+                return [
+                    'quantity' => $productSales->sum('quantity_sold'),
+                    'revenue' => $productSales->sum('total_price'),
+                    'profit' => $productSales->sum('profit'),
+                ];
+            })
+            ->sortByDesc('revenue')
+            ->take(5);
 
         // Sales by day - handle potential null sale_time
         $salesByDay = $sales->groupBy(function($sale) {
@@ -146,15 +146,15 @@ class ReportController extends Controller
         $topProducts = $sales->groupBy(function($sale) {
             return $sale->product ? $sale->product->name : 'Unknown Product';
         })
-        ->map(function($productSales) {
-            return [
-                'quantity' => $productSales->sum('quantity_sold'),
-                'revenue' => $productSales->sum('total_price'),
-                'profit' => $productSales->sum('profit'),
-            ];
-        })
-        ->sortByDesc('revenue')
-        ->take(10);
+            ->map(function($productSales) {
+                return [
+                    'quantity' => $productSales->sum('quantity_sold'),
+                    'revenue' => $productSales->sum('total_price'),
+                    'profit' => $productSales->sum('profit'),
+                ];
+            })
+            ->sortByDesc('revenue')
+            ->take(10);
 
         // Sales by day - handle potential null sale_time
         $salesByDay = $sales->groupBy(function($sale) {
