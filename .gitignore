@@ -21,3 +21,23 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Test files and directories
+/tests
+test-*.php
+*Test.php
+phpunit.xml
+.phpunit.cache/
+.phpunit.result.cache
+
+# Development and temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-*

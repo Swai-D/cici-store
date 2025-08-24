@@ -9,6 +9,7 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\RoleManagementController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 
 // Root route - redirect to appropriate page based on auth status
@@ -74,6 +75,25 @@ Route::middleware(['auth'])->group(function () {
     // Suppliers
     Route::middleware('permission:view_suppliers')->group(function () {
         Route::get('/suppliers', [SupplierController::class, 'index'])->name('web.suppliers.index');
+    });
+
+    // AI Business Consultant Settings (Admin only)
+    Route::middleware('permission:manage_ai')->group(function () {
+    Route::get('/admin/ai', [SettingController::class, 'editAI'])->name('admin.ai.edit');
+    Route::post('/admin/ai', [SettingController::class, 'updateAI'])->name('admin.ai.update');
+    Route::post('/admin/ai/validate-key', [SettingController::class, 'validateApiKey'])->name('admin.ai.validate-key');
+});
+
+    // AI Business Consultant Chat
+    Route::middleware('permission:use_ai')->group(function () {
+        Route::get('/ai-chat', function () {
+            return view('ai-chat');
+        })->name('ai.chat');
+        
+        // Web-based AI chat endpoint (no API authentication needed)
+        Route::post('/ai-chat/send', [\App\Http\Controllers\AI\AiChatController::class, 'chat'])->name('ai.chat.send');
+        
+
     });
     Route::middleware('permission:create_suppliers')->group(function () {
         Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('web.suppliers.create');

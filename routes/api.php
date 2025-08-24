@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\AI\AiChatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -108,6 +109,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/profit-loss', [ReportController::class, 'profitLoss'])->name('profit-loss');
         Route::get('/profit-loss/range', [ReportController::class, 'profitLossRange'])->name('profit-loss-range');
     });
+
+    // AI Business Consultant API
+    Route::post('/ai/chat', [AiChatController::class, 'chat'])->name('api.ai.chat');
     
     // Webhook endpoint for n8n
     Route::post('/webhook/n8n', function (Request $request) {

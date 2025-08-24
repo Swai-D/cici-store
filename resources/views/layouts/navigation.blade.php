@@ -54,6 +54,12 @@
                         </x-nav-link>
                     @endcan
 
+                    @can('use_ai')
+                        <x-nav-link :href="route('ai.chat')" :active="request()->routeIs('ai.*')">
+                            {{ __('AI Consultant') }}
+                        </x-nav-link>
+                    @endcan
+
                     @role('Admin')
                         <x-nav-link :href="route('web.users.index')" :active="request()->routeIs('web.users.*')">
                             {{ __('User Management') }}
@@ -89,6 +95,12 @@
                             <x-dropdown-link :href="route('profile')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+
+                            @can('manage_ai')
+                                <x-dropdown-link :href="route('admin.ai.edit')">
+                                    {{ __('AI Settings') }}
+                                </x-dropdown-link>
+                            @endcan
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -162,6 +174,12 @@
                 </x-responsive-nav-link>
             @endcan
 
+            @can('use_ai')
+                <x-responsive-nav-link :href="route('ai.chat')" :active="request()->routeIs('ai.*')">
+                    {{ __('AI Consultant') }}
+                </x-responsive-nav-link>
+            @endcan
+
             @role('Admin')
                 <x-responsive-nav-link :href="route('web.users.index')" :active="request()->routeIs('web.users.*')">
                     {{ __('User Management') }}
@@ -185,6 +203,12 @@
                 <x-responsive-nav-link :href="route('profile')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+
+                @can('manage_ai')
+                    <x-responsive-nav-link :href="route('admin.ai.edit')">
+                        {{ __('AI Settings') }}
+                    </x-responsive-nav-link>
+                @endcan
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

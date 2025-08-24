@@ -29,6 +29,11 @@ class Sale extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class, 'customer_phone', 'phone');
+    }
+
     public function getProfitAttribute(): float
     {
         if (!$this->product || !$this->product->purchase_price) {

@@ -71,6 +71,10 @@ class RolePermissionSeeder extends Seeder
             'create_customers',
             'edit_customers',
             'delete_customers',
+            
+            // AI Business Consultant
+            'manage_ai',
+            'use_ai',
         ];
 
         foreach ($permissions as $permission) {
@@ -91,6 +95,7 @@ class RolePermissionSeeder extends Seeder
             'view_categories', 'create_categories', 'edit_categories',
             'view_suppliers', 'create_suppliers', 'edit_suppliers',
             'view_customers', 'create_customers', 'edit_customers',
+            'use_ai', // Can use AI Business Consultant
         ]);
 
         $cashierRole = Role::create(['name' => 'Cashier']);
@@ -101,6 +106,7 @@ class RolePermissionSeeder extends Seeder
             'view_expenses', 'create_expenses',
             'view_reports',
             'view_customers', 'create_customers',
+            'use_ai', // Can use AI Business Consultant for business insights
         ]);
 
         // Admin user will be created by AdminUserSeeder
