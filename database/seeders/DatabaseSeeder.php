@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolePermissionSeeder::class,    // Creates roles and permissions
             AdminUserSeeder::class,         // Creates admin user
+            AiPermissionSeeder::class,      // Creates AI permissions
         ]);
         
         // Development: Uncomment below for dummy data during development
