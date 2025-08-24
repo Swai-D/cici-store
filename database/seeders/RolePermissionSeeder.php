@@ -78,14 +78,17 @@ class RolePermissionSeeder extends Seeder
         ];
 
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            Permission::firstOrCreate(['name' => $permission], [
+                'name' => $permission,
+                'guard_name' => 'web',
+            ]);
         }
 
         // Create roles and assign permissions
-        $adminRole = Role::create(['name' => 'Admin']);
+        $adminRole = Role::firstOrCreate(['name' => 'Admin']);
         $adminRole->givePermissionTo(Permission::all());
 
-        $managerRole = Role::create(['name' => 'Manager']);
+        $managerRole = Role::firstOrCreate(['name' => 'Manager']);
         $managerRole->givePermissionTo([
             'view_dashboard',
             'view_products', 'create_products', 'edit_products',
@@ -98,7 +101,7 @@ class RolePermissionSeeder extends Seeder
             'use_ai', // Can use AI Business Consultant
         ]);
 
-        $cashierRole = Role::create(['name' => 'Cashier']);
+        $cashierRole = Role::firstOrCreate(['name' => 'Cashier']);
         $cashierRole->givePermissionTo([
             'view_dashboard',
             'view_products',

@@ -13,29 +13,31 @@ class AiPermissionSeeder extends Seeder
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Create AI permissions
+        // Safely create AI permissions (won't fail if they already exist)
         $permissions = [
             'manage_ai' => 'Manage AI settings and configuration',
             'use_ai' => 'Use AI Business Consultant',
         ];
 
         foreach ($permissions as $permission => $description) {
-            Permission::firstOrCreate(['name' => $permission], [
-                'name' => $permission,
-                'guard_name' => 'web',
-            ]);
+            Permission::firstOrCreate(
+                ['name' => $permission],
+                [
+                    'name' => $permission,
+                    'guard_name' => 'web',
+                ]
+            );
         }
 
-        // Get existing roles
+        // Get existing roles (safe for production)
         $adminRole = Role::where('name', 'Admin')->first();
         $managerRole = Role::where('name', 'Manager')->first();
         $cashierRole = Role::where('name', 'Cashier')->first();
 
         // Admin gets ALL permissions (including new AI permissions)
         if ($adminRole) {
-            // Admin already has all permissions, so we just need to ensure AI permissions exist
-            // The RolePermissionSeeder gives Admin all permissions with Permission::all()
-            // So Admin will automatically get these new AI permissions
+            // Admin should have all permissions, including AI permissions
+            $adminRole->givePermissionTo(['manage_ai', 'use_ai']);
         }
 
         // Manager gets use_ai permission (can use AI but not manage settings)

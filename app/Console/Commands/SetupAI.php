@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Artisan;
 
 class SetupAI extends Command
 {
-    protected $signature = 'ai:setup {--force : Force run migrations}';
+    protected $signature = 'ai:setup {--force : Force run migrations} {--seeder-only : Run only the AI seeder without migrations}';
     protected $description = 'Setup AI Business Consultant for CICI Store';
 
     public function handle()
@@ -17,41 +17,42 @@ class SetupAI extends Command
 
         // Check if we should force migrations
         $force = $this->option('force');
+        $seederOnly = $this->option('seeder-only');
 
-        // Run migrations
-        $this->info('📦 Running migrations...');
-        try {
-            if ($force) {
-                Artisan::call('migrate', ['--force' => true]);
-            } else {
-                Artisan::call('migrate');
+        // Run migrations (skip if seeder-only mode)
+        if (!$seederOnly) {
+            $this->info('📦 Running migrations...');
+            try {
+                if ($force) {
+                    Artisan::call('migrate', ['--force' => true]);
+                } else {
+                    Artisan::call('migrate');
+                }
+                $this->info('✅ Migrations completed successfully');
+            } catch (\Exception $e) {
+                $this->error('❌ Migration failed: ' . $e->getMessage());
+                return 1;
             }
-            $this->info('✅ Migrations completed successfully');
-        } catch (\Exception $e) {
-            $this->error('❌ Migration failed: ' . $e->getMessage());
-            return 1;
+        } else {
+            $this->info('📦 Skipping migrations (seeder-only mode)...');
         }
 
-        // Run seeders
+        // Run seeders safely
         $this->info('🌱 Running seeders...');
         try {
+            // Always run SettingSeeder first
             Artisan::call('db:seed', ['--class' => 'SettingSeeder']);
+            $this->info('✅ SettingSeeder completed');
             
-            // Check if roles already exist (to avoid conflicts)
-            $adminRole = \Spatie\Permission\Models\Role::where('name', 'Admin')->first();
-            if ($adminRole) {
-                // Roles exist, just add AI permissions
-                Artisan::call('db:seed', ['--class' => 'AiPermissionSeeder']);
-            } else {
-                // No roles exist, run full role seeder
-                $this->info('Creating roles and permissions...');
-                Artisan::call('db:seed', ['--class' => 'RolePermissionSeeder']);
-            }
+            // Run AI Permission Seeder (safe for production)
+            Artisan::call('db:seed', ['--class' => 'AiPermissionSeeder']);
+            $this->info('✅ AiPermissionSeeder completed');
             
-            $this->info('✅ Seeders completed successfully');
+            $this->info('✅ All seeders completed successfully');
         } catch (\Exception $e) {
             $this->error('❌ Seeder failed: ' . $e->getMessage());
-            return 1;
+            $this->error('This might be due to existing permissions. The AI setup may still work.');
+            // Don't return 1 here as the setup might still be functional
         }
 
         // Clear caches
