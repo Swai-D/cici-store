@@ -11,16 +11,13 @@ cmds = [
 cmds = [
     "npm run build:prod",
     "chmod +x scripts/fix-assets.sh",
-    "./scripts/fix-assets.sh",
-    "php artisan config:cache",
-    "php artisan route:cache",
-    "php artisan view:cache"
+    "./scripts/fix-assets.sh"
 ]
 
 [start]
-cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "php artisan config:clear && php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=$PORT"
 
 [variables]
 APP_ENV = "production"
 APP_DEBUG = "false"
-LOG_CHANNEL = "stderr" 
+LOG_CHANNEL = "stderr"

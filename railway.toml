@@ -2,10 +2,20 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
+startCommand = "php artisan config:clear && php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=$PORT"
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "php artisan config:clear && php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=$PORT"
 healthcheckPath = "/health"
 healthcheckTimeout = 300
 restartPolicyType = "on_failure"
 
+[deploy.envs]
+NODE_ENV = "production"
 [deploy.envs]
 NODE_ENV = "production"
