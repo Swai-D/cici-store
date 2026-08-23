@@ -35,7 +35,12 @@ class RolePermissionSeeder extends Seeder
             'create_sales',
             'edit_sales',
             'delete_sales',
-            
+
+            // Purchases (Stock-In)
+            'view_purchases',
+            'create_purchases',
+            'delete_purchases',
+
             // Expenses
             'view_expenses',
             'create_expenses',
@@ -93,6 +98,7 @@ class RolePermissionSeeder extends Seeder
             'view_dashboard',
             'view_products', 'create_products', 'edit_products',
             'view_sales', 'create_sales', 'edit_sales',
+            'view_purchases', 'create_purchases',
             'view_expenses', 'create_expenses', 'edit_expenses',
             'view_reports', 'generate_reports',
             'view_categories', 'create_categories', 'edit_categories',
