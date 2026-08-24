@@ -22,40 +22,33 @@
                         @php
                             $inProductsGroup = request()->routeIs('web.products.*') || request()->routeIs('web.categories.*') || request()->routeIs('web.suppliers.*');
                         @endphp
-                        <div class="relative flex items-center" x-data="{ open: false }" @click.outside="open = false">
-                            <button @click="open = ! open"
-                                    class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 focus:outline-none transition duration-150 ease-in-out {{ $inProductsGroup ? 'border-indigo-400 text-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
-                                {{ __('Products') }}
-                                <svg class="ml-1 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                            <div x-show="open"
-                                 x-transition:enter="transition ease-out duration-200"
-                                 x-transition:enter-start="opacity-0 scale-95"
-                                 x-transition:enter-end="opacity-100 scale-100"
-                                 x-transition:leave="transition ease-in duration-75"
-                                 x-transition:leave-start="opacity-100 scale-100"
-                                 x-transition:leave-end="opacity-0 scale-95"
-                                 class="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top-left"
-                                 style="display: none;"
-                                 @click="open = false">
-                                <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white">
-                                    <a href="{{ route('web.products.index') }}" class="block px-4 py-2 text-sm {{ request()->routeIs('web.products.*') ? 'text-gray-900 font-semibold' : 'text-gray-700' }} hover:bg-gray-100">
+                        <div class="flex items-center">
+                            <x-dropdown align="left" width="56">
+                                <x-slot name="trigger">
+                                    <button class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 focus:outline-none transition duration-150 ease-in-out {{ $inProductsGroup ? 'border-indigo-400 text-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                                        {{ __('Products') }}
+                                        <svg class="ml-1 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('web.products.index')">
                                         {{ __('Bidhaa Zote') }}
-                                    </a>
+                                    </x-dropdown-link>
                                     @can('view_categories')
-                                        <a href="{{ route('web.categories.index') }}" class="block px-4 py-2 text-sm {{ request()->routeIs('web.categories.*') ? 'text-gray-900 font-semibold' : 'text-gray-700' }} hover:bg-gray-100">
+                                        <x-dropdown-link :href="route('web.categories.index')">
                                             {{ __('Categories') }}
-                                        </a>
+                                        </x-dropdown-link>
                                     @endcan
                                     @can('view_suppliers')
-                                        <a href="{{ route('web.suppliers.index') }}" class="block px-4 py-2 text-sm {{ request()->routeIs('web.suppliers.*') ? 'text-gray-900 font-semibold' : 'text-gray-700' }} hover:bg-gray-100">
+                                        <x-dropdown-link :href="route('web.suppliers.index')">
                                             {{ __('Suppliers') }}
-                                        </a>
+                                        </x-dropdown-link>
                                     @endcan
-                                </div>
-                            </div>
+                                </x-slot>
+                            </x-dropdown>
                         </div>
                     @endcan
 
