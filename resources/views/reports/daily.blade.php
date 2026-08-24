@@ -7,10 +7,12 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @include('reports._tabs')
+            <div class="print:hidden">
+                @include('reports._tabs')
+            </div>
 
             <!-- Date Filter -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6 print:hidden">
                 <div class="p-6">
                     <form method="GET" action="{{ route('web.reports.daily') }}" class="flex items-end gap-4">
                         <div>
@@ -23,9 +25,22 @@
                         </button>
                         <a href="{{ route('web.reports.daily', ['date' => now()->format('Y-m-d')]) }}"
                            class="text-sm text-gray-500 hover:text-gray-700">Leo</a>
+                        <button type="button" onclick="window.print()"
+                                class="ml-auto flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-700 font-bold py-2 px-4 rounded border border-gray-300">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                            </svg>
+                            Pakua PDF / Chapisha
+                        </button>
                     </form>
                 </div>
             </div>
+
+            <div id="report-print-area">
+                <div class="hidden print:block mb-6">
+                    <h1 class="text-xl font-bold">{{ config('app.name') }} — Daily Sales Report</h1>
+                    <p class="text-sm text-gray-600">{{ $date }}</p>
+                </div>
 
             <!-- Summary Cards -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
@@ -61,7 +76,7 @@
             </div>
 
             <!-- Chart -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6 print:hidden">
                 <div class="p-6">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Sales by Hour</h3>
                     <div class="h-64">
@@ -122,8 +137,17 @@
                     @endif
                 </div>
             </div>
+            </div>
         </div>
     </div>
+
+    <style>
+        @media print {
+            body * { visibility: hidden; }
+            #report-print-area, #report-print-area * { visibility: visible; }
+            #report-print-area { position: absolute; left: 0; top: 0; width: 100%; }
+        }
+    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

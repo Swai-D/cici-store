@@ -138,14 +138,18 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Purchases (Stock-In)
+    // MUHIMU: '/purchases/create' lazima isajiliwe KABLA ya '/purchases/{purchase}'
+    // vinginevyo Laravel inajaribu kutafsiri "create" kama ID ya purchase (404).
     Route::middleware('permission:view_purchases')->group(function () {
         Route::get('/purchases', [PurchaseController::class, 'index'])->name('web.purchases.index');
-        Route::get('/purchases/{purchase}', [PurchaseController::class, 'show'])->name('web.purchases.show');
     });
     Route::middleware('permission:create_purchases')->group(function () {
         Route::get('/purchases/create', [PurchaseController::class, 'create'])->name('web.purchases.create');
         Route::post('/purchases', [PurchaseController::class, 'store'])->name('web.purchases.store');
         Route::get('/api/purchases/products/search', [PurchaseController::class, 'searchProducts'])->name('api.purchases.products.search');
+    });
+    Route::middleware('permission:view_purchases')->group(function () {
+        Route::get('/purchases/{purchase}', [PurchaseController::class, 'show'])->name('web.purchases.show');
     });
     Route::middleware('permission:delete_purchases')->group(function () {
         Route::delete('/purchases/{purchase}', [PurchaseController::class, 'destroy'])->name('web.purchases.destroy');

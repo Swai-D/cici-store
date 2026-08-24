@@ -205,8 +205,8 @@
                 </div>
             </div>
 
-            <!-- Content Row -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Content Row: Recent Sales, Low Stock, AI Business Consultant, AI Status -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <!-- Recent Sales -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
@@ -283,12 +283,9 @@
                         @endif
                     </div>
                 </div>
-            </div>
 
-            <!-- AI Business Consultant Widget -->
-            @can('use_ai')
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <div class="lg:col-span-2">
+                <!-- AI Business Consultant Widget -->
+                @can('use_ai')
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6">
                             <div class="flex items-center justify-between mb-4">
@@ -334,9 +331,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- AI Status Card -->
+                    <!-- AI Status Card -->
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
                         <h3 class="text-lg font-medium text-gray-900 mb-4">AI Status</h3>
@@ -389,10 +385,10 @@
                             @endif
                         </div>
                     </div>
-                </div>
+                @endcan
             </div>
-            @endcan
         </div>
+    </div>
     </div>
 
     <!-- Chart.js CDN -->
