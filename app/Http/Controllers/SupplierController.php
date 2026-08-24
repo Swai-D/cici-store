@@ -96,4 +96,22 @@ class SupplierController extends Controller
         $supplier->delete();
         return redirect()->route('web.suppliers.index')->with('success', 'Supplier deleted successfully!');
     }
+
+    /**
+     * Quick-create a supplier via AJAX (used by the product form's inline
+     * "+ Ongeza Supplier Mpya" so users aren't forced to leave the page).
+     */
+    public function quickStore(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $supplier = Supplier::create(['name' => $validated['name']]);
+
+        return response()->json([
+            'id' => $supplier->id,
+            'name' => $supplier->name,
+        ]);
+    }
 } 

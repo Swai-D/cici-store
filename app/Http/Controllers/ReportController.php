@@ -12,7 +12,9 @@ class ReportController extends Controller
 {
     public function index()
     {
-        return view('reports.index');
+        // "Reports" sasa inaenda moja kwa moja kwenye report inayotumika zaidi
+        // (daily), badala ya kuonyesha menu ya kati isiyo na taarifa yoyote.
+        return redirect()->route('web.reports.daily');
     }
 
     public function daily(Request $request)

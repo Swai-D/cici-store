@@ -44,17 +44,17 @@
                                 
                                 <div>
                                     <span class="font-medium text-gray-700">Category:</span>
-                                    <p class="text-gray-900 mt-1">{{ $product->category->name }}</p>
+                                    <p class="text-gray-900 mt-1">{{ $product->category?->name ?? '—' }}</p>
                                 </div>
                                 
                                 <div>
                                     <span class="font-medium text-gray-700">Supplier:</span>
-                                    <p class="text-gray-900 mt-1">{{ $product->supplier->name }}</p>
+                                    <p class="text-gray-900 mt-1">{{ $product->supplier?->name ?? '—' }}</p>
                                 </div>
                                 
                                 <div>
                                     <span class="font-medium text-gray-700">Arrival Date:</span>
-                                    <p class="text-gray-900 mt-1">{{ $product->arrival_date->format('M d, Y') }}</p>
+                                    <p class="text-gray-900 mt-1">{{ $product->arrival_date?->format('M d, Y') ?? '—' }}</p>
                                 </div>
                             </div>
                         </div>

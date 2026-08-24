@@ -70,14 +70,14 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'category_id' => 'required|exists:categories,id',
-            'supplier_id' => 'required|exists:suppliers,id',
+            'category_id' => 'nullable|exists:categories,id',
+            'supplier_id' => 'nullable|exists:suppliers,id',
             'purchase_price' => 'required|numeric|min:0',
             'selling_price' => 'required|numeric|min:0',
             'discount_price' => 'nullable|numeric|min:0',
             'stock_quantity' => 'required|numeric|min:0',
             'unit' => 'required|string|max:20',
-            'arrival_date' => 'required|date',
+            'arrival_date' => 'nullable|date',
         ]);
 
         // Generate unique product code
@@ -137,14 +137,14 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'category_id' => 'required|exists:categories,id',
-            'supplier_id' => 'required|exists:suppliers,id',
+            'category_id' => 'nullable|exists:categories,id',
+            'supplier_id' => 'nullable|exists:suppliers,id',
             'purchase_price' => 'required|numeric|min:0',
             'selling_price' => 'required|numeric|min:0',
             'discount_price' => 'nullable|numeric|min:0',
             'stock_quantity' => 'required|numeric|min:0',
             'unit' => 'required|string|max:20',
-            'arrival_date' => 'required|date',
+            'arrival_date' => 'nullable|date',
         ]);
 
         $product->update($request->all());

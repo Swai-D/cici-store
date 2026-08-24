@@ -22,7 +22,7 @@
                         </div>
                         <div class="text-right text-sm">
                             <div class="text-gray-600">Supplier</div>
-                            <div class="font-medium">{{ $purchase->supplier->name ?? '—' }}</div>
+                            <div class="font-medium">{{ $purchase->supplier?->name ?? '—' }}</div>
                         </div>
                     </div>
 

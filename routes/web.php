@@ -61,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware('permission:create_categories')->group(function () {
         Route::get('/categories/create', [CategoryController::class, 'create'])->name('web.categories.create');
         Route::post('/categories', [CategoryController::class, 'store'])->name('web.categories.store');
+        Route::post('/api/categories/quick-store', [CategoryController::class, 'quickStore'])->name('api.categories.quick-store');
     });
     Route::middleware('permission:view_categories')->group(function () {
         Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('web.categories.show');
@@ -99,6 +100,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware('permission:create_suppliers')->group(function () {
         Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('web.suppliers.create');
         Route::post('/suppliers', [SupplierController::class, 'store'])->name('web.suppliers.store');
+        Route::post('/api/suppliers/quick-store', [SupplierController::class, 'quickStore'])->name('api.suppliers.quick-store');
     });
     Route::middleware('permission:view_suppliers')->group(function () {
         Route::get('/suppliers/{supplier}', [SupplierController::class, 'show'])->name('web.suppliers.show');

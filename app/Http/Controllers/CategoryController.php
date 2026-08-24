@@ -88,4 +88,21 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('web.categories.index')->with('success', 'Category deleted successfully!');
     }
+    /**
+     * Quick-create a category via AJAX (used by the product form's inline
+     * "+ Ongeza Category Mpya" so users aren't forced to leave the page).
+     */
+    public function quickStore(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:categories',
+        ]);
+
+        $category = Category::create(['name' => $validated['name']]);
+
+        return response()->json([
+            'id' => $category->id,
+            'name' => $category->name,
+        ]);
+    }
 } 

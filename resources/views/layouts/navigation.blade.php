@@ -55,7 +55,7 @@
                     @endcan
 
                     @can('view_reports')
-                        <x-nav-link :href="route('web.reports.index')" :active="request()->routeIs('web.reports.*')">
+                        <x-nav-link :href="route('web.reports.daily')" :active="request()->routeIs('web.reports.*')">
                             {{ __('Reports') }}
                         </x-nav-link>
                     @endcan
@@ -181,7 +181,7 @@
             @endcan
 
             @can('view_reports')
-                <x-responsive-nav-link :href="route('web.reports.index')" :active="request()->routeIs('web.reports.*')">
+                <x-responsive-nav-link :href="route('web.reports.daily')" :active="request()->routeIs('web.reports.*')">
                     {{ __('Reports') }}
                 </x-responsive-nav-link>
             @endcan

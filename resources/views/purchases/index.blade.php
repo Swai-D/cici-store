@@ -86,7 +86,7 @@
                                             <div class="text-sm font-medium text-gray-900">{{ $purchase->reference_no }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {{ $purchase->supplier->name ?? '—' }}
+                                            {{ $purchase->supplier?->name ?? '—' }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             @php $firstItem = $purchase->items->first(); @endphp
